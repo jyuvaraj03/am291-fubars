@@ -1,3 +1,4 @@
+import 'package:ClientApp/school/schoolHome.dart';
 import 'package:ClientApp/school/view_reports/schoolReportHistory.dart';
 import 'package:ClientApp/welcomePage.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
             builder: (ctx, auth, _) => MaterialApp(
                     debugShowCheckedModeBanner: false,
                     title: 'MyShop',
-                    home: SchoolReportHistory(), 
+                    home: SchoolHome(), 
                     //auth.isAuth ? ChooseUserType() : AuthScreen(),
                     routes: {
                       '/AuthScreen': (BuildContext context) => AuthScreen(),
