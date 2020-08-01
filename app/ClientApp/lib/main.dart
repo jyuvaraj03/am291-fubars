@@ -60,6 +60,8 @@ class _MyAppState extends State<MyApp> {
                       '/AuthScreen': (BuildContext context) => AuthScreen(),
                       '/ChooseUserType': (BuildContext context) =>
                           ChooseUserType(),
+                          '/SchoolReportHistory': (BuildContext context) =>
+                         SchoolReportHistory(),
                     })));
   }
 }

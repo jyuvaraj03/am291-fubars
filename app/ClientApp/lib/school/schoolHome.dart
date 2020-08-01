@@ -88,7 +88,9 @@ class _SchoolHomeState extends State<SchoolHome> {
                           splashColor: Color.fromRGBO(97, 227, 236, 1),
                           textColor: Color.fromRGBO(97, 227, 236, 1),
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/SchoolReportHistory');
+                          },
                           child: Text("Reports History"),
                         )),
                   ],
