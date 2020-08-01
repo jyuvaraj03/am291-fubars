@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd@m((as5zxr!&dj#uqv(&5^6*1r3k$fro=sqroz)4@*pk(6_xs'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or 'r3itzpk4^8^jtjmmyt0h!9prlvyamcoenept_oz*gkaz^nxkgt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +79,12 @@ WSGI_APPLICATION = 'mdm.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DJANGO_POSTGRES_DATABASE') or 'mdm',
+        'USER': os.environ.get('DJANGO_POSTGRES_USER') or 'mdm_user',
+        'PASSWORD': os.environ.get('DJANGO_POSTGRES_PASSWORD') or 'InchOwiL',
+        'HOST': os.environ.get('DJANGO_POSTGRES_HOST') or 'localhost',
+        'PORT': '',
     }
 }
 
