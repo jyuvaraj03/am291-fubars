@@ -7,9 +7,10 @@ def index(req):
 		obj = json.load(f)
 	
 	context = {
-		'title':'Dashboard',
+		'title':'Schools Report Monitoring Dashboard',
 		'data':obj['data'],
 		'labels':obj['labels'],
-		'label':obj['title']
+		'label':obj['title'],
+		'email':'authority@fubars.com'
 	}
 	return render(req,'analytics/dashboard.html',context)
