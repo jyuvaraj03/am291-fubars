@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../helpers/auth.dart';
 
 
 enum AuthMode { Signup, Login }
@@ -110,11 +113,13 @@ class _AuthCardState extends State<AuthCard> {
     });
     if (_authMode == AuthMode.Login) {
       // Log user in
+      await Provider.of<Auth>(context, listen: false).actualLogin(_authData['username'], _authData['password']);
      
     } else {
       // Sign user up
-
-      
+      await Provider.of<Auth>(context, listen: false).signup(_authData['username'], _authData['email'], _authData['password']);
+      print("Sign up button clicked");
+      Navigator.pushReplacementNamed(context, "/ChooseUserType");
     }
     setState(() {
       _isLoading = false;
