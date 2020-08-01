@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:ClientApp/helpers/postSchoolCount.dart';
 
 class SchoolHome extends StatefulWidget {
   @override
@@ -74,7 +77,9 @@ class _SchoolHomeState extends State<SchoolHome> {
                               borderRadius: BorderRadius.circular(10)),
                           color: Colors.greenAccent,
                           padding: EdgeInsets.all(8),
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<PostSchoolCount>(context,listen: false).postStudentCount(_attendanceController.text.toString());
+                          },
                           child: Icon(
                             Icons.check,
                             color: Colors.white,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './userSignUp.dart';
+
 class ChooseUserType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,10 @@ class ChooseUserType extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15)),
                     onPressed: () {
                       // SignUp user with authority details
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => UserSignUp("Authority")));
                     },
                     child: Text(
                       "Authority",
@@ -44,6 +50,10 @@ class ChooseUserType extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15)),
                     onPressed: () {
                       //sign up user with school details
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserSignUp("Reporter")));
                     },
                     child: Text(
                       "Reporter",
