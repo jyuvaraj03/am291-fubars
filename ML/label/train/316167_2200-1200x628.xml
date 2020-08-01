@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>316167_2200-1200x628.jpg</filename>
+	<path>/home/shriram/Pictures/labels/316167_2200-1200x628.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>628</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rice</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>209</xmin>
+			<ymin>47</ymin>
+			<xmax>1065</xmax>
+			<ymax>537</ymax>
+		</bndbox>
+	</object>
+</annotation>

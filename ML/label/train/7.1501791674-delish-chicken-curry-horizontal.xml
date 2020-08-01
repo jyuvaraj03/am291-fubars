@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>7.1501791674-delish-chicken-curry-horizontal.jpg</filename>
+	<path>/home/shriram/Documents/label/train/7.1501791674-delish-chicken-curry-horizontal.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>curry</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>250</xmin>
+			<ymin>68</ymin>
+			<xmax>923</xmax>
+			<ymax>498</ymax>
+		</bndbox>
+	</object>
+</annotation>

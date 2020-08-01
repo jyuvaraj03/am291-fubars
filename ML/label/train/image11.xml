@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>image11.jpg</filename>
+	<path>/home/shriram/Documents/label/train/image11.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>474</width>
+		<height>713</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rice</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>89</xmin>
+			<ymin>232</ymin>
+			<xmax>466</xmax>
+			<ymax>479</ymax>
+		</bndbox>
+	</object>
+</annotation>

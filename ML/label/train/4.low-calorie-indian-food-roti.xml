@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>4.low-calorie-indian-food-roti.jpg</filename>
+	<path>/home/shriram/Documents/label/train/4.low-calorie-indian-food-roti.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>332</width>
+		<height>213</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>roti</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>60</xmin>
+			<ymin>16</ymin>
+			<xmax>275</xmax>
+			<ymax>174</ymax>
+		</bndbox>
+	</object>
+</annotation>

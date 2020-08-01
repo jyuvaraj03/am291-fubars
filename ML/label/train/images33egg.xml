@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>images33egg.jpg</filename>
+	<path>/home/shriram/Pictures/labels/images33egg.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>100</width>
+		<height>100</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>egg</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>27</xmin>
+			<ymin>18</ymin>
+			<xmax>76</xmax>
+			<ymax>78</ymax>
+		</bndbox>
+	</object>
+</annotation>

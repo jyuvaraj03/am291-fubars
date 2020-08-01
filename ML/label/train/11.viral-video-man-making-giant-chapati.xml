@@ -1,0 +1,26 @@
+<annotation>
+	<folder>roti</folder>
+	<filename>11.viral-video-man-making-giant-chapati.jpg</filename>
+	<path>/home/shriram/Documents/sih/images/roti/11.viral-video-man-making-giant-chapati.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>800</width>
+		<height>450</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>roti</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>477</xmin>
+			<ymin>65</ymin>
+			<xmax>797</xmax>
+			<ymax>417</ymax>
+		</bndbox>
+	</object>
+</annotation>

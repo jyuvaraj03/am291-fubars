@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>Chipotle-Cilantro-Lime-Rice-Recipe-Copycat-Culinary-Hill-LR-01SQ-500x375.jpg</filename>
+	<path>/home/shriram/Pictures/labels/Chipotle-Cilantro-Lime-Rice-Recipe-Copycat-Culinary-Hill-LR-01SQ-500x375.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>500</width>
+		<height>375</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rice</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>39</xmin>
+			<ymin>70</ymin>
+			<xmax>418</xmax>
+			<ymax>297</ymax>
+		</bndbox>
+	</object>
+</annotation>

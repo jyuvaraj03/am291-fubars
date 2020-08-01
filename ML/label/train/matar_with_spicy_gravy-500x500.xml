@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>matar_with_spicy_gravy-500x500.jpg</filename>
+	<path>/home/shriram/Pictures/labels/matar_with_spicy_gravy-500x500.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>500</width>
+		<height>500</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>curry</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>130</xmin>
+			<ymin>45</ymin>
+			<xmax>500</xmax>
+			<ymax>466</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>basmati-rice-760x578.jpg</filename>
+	<path>/home/shriram/Pictures/labels/basmati-rice-760x578.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>760</width>
+		<height>578</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rice</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>161</xmin>
+			<ymin>109</ymin>
+			<xmax>538</xmax>
+			<ymax>423</ymax>
+		</bndbox>
+	</object>
+</annotation>

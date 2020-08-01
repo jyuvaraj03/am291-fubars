@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>rice-today-main-190430_c0a6b9a99c9c46a793b2c21112a025f2.jpg</filename>
+	<path>/home/shriram/Documents/label/train/rice-today-main-190430_c0a6b9a99c9c46a793b2c21112a025f2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2400</width>
+		<height>1200</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rice</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>350</xmin>
+			<ymin>30</ymin>
+			<xmax>2018</xmax>
+			<ymax>919</ymax>
+		</bndbox>
+	</object>
+</annotation>

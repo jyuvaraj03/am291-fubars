@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>5423323.jpg</filename>
+	<path>/home/shriram/Pictures/labels/5423323.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>3264</width>
+		<height>2448</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>roti</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>498</xmin>
+			<ymin>130</ymin>
+			<xmax>2831</xmax>
+			<ymax>2016</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>image21chap.jpeg</filename>
+	<path>/home/shriram/Pictures/labels/image21chap.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>259</width>
+		<height>194</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>roti</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>12</xmin>
+			<ymin>11</ymin>
+			<xmax>238</xmax>
+			<ymax>164</ymax>
+		</bndbox>
+	</object>
+</annotation>

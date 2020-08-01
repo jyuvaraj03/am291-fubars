@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>broken2Bwheat2Bsambar2Brice1.jpg</filename>
+	<path>/home/shriram/Documents/label/train/broken2Bwheat2Bsambar2Brice1.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>840</width>
+		<height>1200</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rice</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>71</xmin>
+			<ymin>393</ymin>
+			<xmax>734</xmax>
+			<ymax>1029</ymax>
+		</bndbox>
+	</object>
+</annotation>

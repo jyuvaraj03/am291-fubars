@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>121711211540Roti_Chapati.jpg</filename>
+	<path>/home/shriram/Pictures/labels/121711211540Roti_Chapati.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>600</width>
+		<height>320</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>roti</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>56</xmin>
+			<ymin>4</ymin>
+			<xmax>517</xmax>
+			<ymax>284</ymax>
+		</bndbox>
+	</object>
+</annotation>

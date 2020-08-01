@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>322ef4a301ec757880ecb9441525594e.jpg</filename>
+	<path>/home/shriram/Documents/label/train/322ef4a301ec757880ecb9441525594e.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>696</width>
+		<height>905</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>roti</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>17</xmin>
+			<ymin>166</ymin>
+			<xmax>662</xmax>
+			<ymax>740</ymax>
+		</bndbox>
+	</object>
+</annotation>
