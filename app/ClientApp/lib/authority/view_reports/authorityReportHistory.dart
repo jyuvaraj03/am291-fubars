@@ -32,6 +32,7 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
         "Content-Type": "application/json"
       },
     );
+    print(response.statusCode);
     responseData = jsonDecode(response.body);
     print(responseData);
     for (int i = 0; i < responseData.length; i++) {
@@ -42,6 +43,7 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
       //     .toList()
       //     .toString());
     }
+    print(responseData[0]['is_discrepant'].runtimeType);
     responseData = new List<dynamic>.from(responseData);
     return responseData;
   }
