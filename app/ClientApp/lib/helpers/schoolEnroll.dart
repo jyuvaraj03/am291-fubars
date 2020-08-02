@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SchoolEnroll with ChangeNotifier{
+class SchoolEnroll with ChangeNotifier {
   //String districtName;
   //String districtId;
   final String authToken;
-
+  SharedPreferences userTypePref;
   SchoolEnroll(this.authToken);
-  
+
   Future<void> schoolEnroll(String districtId, String name) async {
     const url = 'http://127.0.0.1:8000/api/schools/';
     print('school enroll token : $authToken');
@@ -23,14 +23,14 @@ class SchoolEnroll with ChangeNotifier{
       url,
       body: data,
       headers: {"Authorization": "Token $authToken"},
-      );
-    if ( response.statusCode == 201){
-        print("school enrolled");
-      }
-      else {
-        print(response.statusCode);
-        print(response.body);
-      }
+    );
+    if (response.statusCode == 201) {
+      print("school enrolled");
+      final userTypePref = await SharedPreferences.getInstance();
+      userTypePref.setBool("isauth", false);
+    } else {
+      print(response.statusCode);
+      print(response.body);
+    }
   }
- 
 }

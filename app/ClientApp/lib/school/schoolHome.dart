@@ -11,11 +11,10 @@ class SchoolHome extends StatefulWidget {
 class _SchoolHomeState extends State<SchoolHome> {
   TextEditingController _attendanceController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  bool isAttendance = false;
   @override
   void dispose() {
     super.dispose();
-    _attendanceController.dispose();
   }
 
   @override
@@ -43,6 +42,7 @@ class _SchoolHomeState extends State<SchoolHome> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   //crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    Text(isAttendance ? _attendanceController.text : " "),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -78,7 +78,13 @@ class _SchoolHomeState extends State<SchoolHome> {
                           color: Colors.greenAccent,
                           padding: EdgeInsets.all(8),
                           onPressed: () {
-                            Provider.of<PostSchoolCount>(context,listen: false).postStudentCount(_attendanceController.text.toString());
+                            Provider.of<PostSchoolCount>(context, listen: false)
+                                .postStudentCount(
+                                    _attendanceController.text.toString());
+                            setState(() {
+                              isAttendance = true;
+                              _attendanceController.clear();
+                            });
                           },
                           child: Icon(
                             Icons.check,
@@ -94,7 +100,8 @@ class _SchoolHomeState extends State<SchoolHome> {
                           textColor: Color.fromRGBO(97, 227, 236, 1),
                           color: Colors.white,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/SchoolReportHistory');
+                            Navigator.pushNamed(
+                                context, '/SchoolReportHistory');
                           },
                           child: Text("Reports History"),
                         )),

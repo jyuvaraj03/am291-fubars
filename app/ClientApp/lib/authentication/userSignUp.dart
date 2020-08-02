@@ -1,7 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -11,7 +10,7 @@ import 'package:ClientApp/helpers/auth.dart';
 import 'package:ClientApp/helpers/authHelper.dart';
 import 'package:ClientApp/helpers/authorityEnroll.dart';
 import 'package:ClientApp/helpers/schoolEnroll.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserSignUp extends StatefulWidget {
   final String userType;
@@ -23,10 +22,12 @@ class UserSignUp extends StatefulWidget {
 }
 
 class _UserSignUpState extends State<UserSignUp> {
+ 
+
   double minPadding = 25.0;
   var _districts = [];
   var _districtData;
-  var _districtIdMap = Map<String,int>();
+  var _districtIdMap = Map<String, int>();
   var _currentItemSelected;
   var _selectedDistrict;
 
@@ -39,17 +40,15 @@ class _UserSignUpState extends State<UserSignUp> {
     _districtData = jsonDecode(response.body);
     _districts.clear();
     _districtIdMap = new Map<String, int>();
-    _districtData.forEach((item) => {
-      _districts.add(item['name'])
-    });
-    _districtData.forEach((item) => {
-      _districtIdMap[item['name']] = item['id']
-    });
+    _districtData.forEach((item) => {_districts.add(item['name'])});
+    _districtData
+        .forEach((item) => {_districtIdMap[item['name']] = item['id']});
     print(_districts);
-    
+
     _districts = new List<String>.from(_districts);
     return _districts;
   }
+
 //[{"id":1,"name":"Chennai"},{"id":3,"name":"Trichy"},{"id":4,"name":"Tiruvallur"},{"id":5,"name":"Vellore"}]
   @override
   Widget build(BuildContext context) {
@@ -78,37 +77,39 @@ class _UserSignUpState extends State<UserSignUp> {
                   padding: const EdgeInsets.only(
                       top: 8.0, bottom: 5, left: 8, right: 10),
                   child: Container(
-                    height: 38,
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(230, 230, 230, 1),
-                    ),
-                    child: FutureBuilder<List<String>>(
-                      future: _getDistrict(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) return CircularProgressIndicator();
-                        return DropdownButton<String>(
-                      //itemHeight: height
-                      hint: Text("Select District"),
-                      value: _currentItemSelected,
-                      items: snapshot.data.map((item) => DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(
-                            item,
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                        )
-                      ).toList(),
-                      onChanged: (String newValueSelected) {
-                        setState(() {
-                          _currentItemSelected = newValueSelected;
-                          _selectedDistrict = _currentItemSelected;
-                        });
-                      },
-                    );
-                    })
-                  ),
+                      height: 38,
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color.fromRGBO(230, 230, 230, 1),
+                      ),
+                      child: FutureBuilder<List<String>>(
+                          future: _getDistrict(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData)
+                              return CircularProgressIndicator();
+                            return DropdownButton<String>(
+                              //itemHeight: height
+                              hint: Text("Select District"),
+                              value: _currentItemSelected,
+                              items: snapshot.data
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (String newValueSelected) {
+                                setState(() {
+                                  _currentItemSelected = newValueSelected;
+                                  _selectedDistrict = _currentItemSelected;
+                                });
+                              },
+                            );
+                          })),
                 ),
                 widget.userType == "Authority"
                     ? AuthoritySignUp(_districtIdMap[_selectedDistrict])
@@ -126,10 +127,13 @@ class AuthoritySignUp extends StatelessWidget {
   int districtId;
 
   AuthoritySignUp(this.districtId);
-  
+
+
+
   @override
   Widget build(BuildContext context) {
-      var authToken = Provider.of<AuthHelper>(context, listen: false).returnToken();
+    var authToken =
+        Provider.of<AuthHelper>(context, listen: false).returnToken();
     return Column(
       children: [
         SizedBox(
@@ -143,7 +147,9 @@ class AuthoritySignUp extends StatelessWidget {
           onPressed: () {
             // Authority details post in db
             print("Authority Auth token: $authToken");
-            Provider.of<AuthorityEnroll>(context, listen: false).enroll(districtId.toString());
+            Provider.of<AuthorityEnroll>(context, listen: false)
+                .enroll(districtId.toString());
+            
             Navigator.pushNamedAndRemoveUntil(
                 context, '/AuthorityHomePage', (route) => false);
           },
@@ -183,7 +189,7 @@ class ReporterSignUp extends StatelessWidget {
               child: TextFormField(
                   keyboardType: TextInputType.text,
                   controller: _schoolNameController,
-                  onSaved: (String value) { },
+                  onSaved: (String value) {},
                   validator: (String value) {
                     return value.trim().isEmpty ? "* required" : null;
                   },
@@ -202,8 +208,9 @@ class ReporterSignUp extends StatelessWidget {
           onPressed: () {
             // Reporter details post in db
             print("Reporter Auth token: $auth.token");
-            Provider.of<SchoolEnroll>(context, listen: false).schoolEnroll(districtId.toString(), _schoolNameController.text);
-            Navigator.pushNamedAndRemoveUntil( 
+            Provider.of<SchoolEnroll>(context, listen: false).schoolEnroll(
+                districtId.toString(), _schoolNameController.text);
+            Navigator.pushNamedAndRemoveUntil(
                 context, '/SchoolHomePage', (route) => false);
           },
           child: Text(

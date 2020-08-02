@@ -2,9 +2,8 @@ import "package:flutter/material.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WelcomePage extends StatefulWidget {
-  final bool isAuth;
+  
 
-  const WelcomePage(this.isAuth);
   @override
   _WelcomePageState createState() => _WelcomePageState();
 }
@@ -16,12 +15,7 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.isAuth == false) {
-
-    }
-    else{
-      
-    }
+   
   }
 
   @override

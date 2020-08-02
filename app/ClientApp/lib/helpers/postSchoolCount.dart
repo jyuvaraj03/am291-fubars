@@ -16,7 +16,6 @@ class PostSchoolCount with ChangeNotifier{
     print(studentCount.runtimeType);
     Map data = {
       'student_count': studentCount,
-      'items': [],
       'for_date': '2020-08-02'
     };
     // responsedata.map((json) => json['item']).toList() 

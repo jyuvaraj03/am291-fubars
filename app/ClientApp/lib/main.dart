@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'authority/authorityHome.dart';
+import 'authority/view_reports/authorityReportHistory.dart';
 import 'helpers/postSchoolCount.dart';
 import 'authentication/authScreen.dart';
 import 'helpers/auth.dart';
@@ -44,44 +46,64 @@ class _MyAppState extends State<MyApp> {
             value: Auth(),
           ),
           ChangeNotifierProxyProvider<Auth, PostSchoolCount>(
-            update: (ctx, auth, _ ) => PostSchoolCount(
+            update: (ctx, auth, _) => PostSchoolCount(
               auth.token,
-              ),
+            ),
           ),
           ChangeNotifierProxyProvider<Auth, AuthorityEnroll>(
             //create: (ctx)=> UserAuthority(),
-            update: (ctx, auth, _ ) => AuthorityEnroll(
+            update: (ctx, auth, _) => AuthorityEnroll(
               auth.token,
-              ),
+            ),
           ),
           ChangeNotifierProxyProvider<Auth, SchoolEnroll>(
             //create: (ctx)=> UserAuthority(),
-            update: (ctx, auth, _ ) => SchoolEnroll(
+            update: (ctx, auth, _) => SchoolEnroll(
               auth.token,
-              ),
+            ),
           ),
           ChangeNotifierProxyProvider<Auth, AuthHelper>(
             //create: (ctx)=> UserAuthority(),
-            update: (ctx, auth, _ ) => AuthHelper(
+            update: (ctx, auth, _) => AuthHelper(
               auth.token,
-              ),
+            ),
           ),
         ],
         child: Consumer<Auth>(
             builder: (ctx, auth, _) => MaterialApp(
                     debugShowCheckedModeBanner: false,
                     title: 'MyShop',
-                    home: auth.isAuth ? ChooseUserType() : AuthScreen(),
+                    home: FutureBuilder(
+                      future: auth.getTokenPref(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.data != null) {
+                          print("snapshot " + snapshot.data);
+                          return FutureBuilder(
+                              future: auth.getUserTypePref(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<bool> snapshot) {
+                                if (snapshot.data == true)
+                                  return AuthorityHome();
+                                else
+                                  return SchoolHome();
+                              });
+                        } else {
+                          return AuthScreen();
+                        }
+                      },
+                    ),
                     routes: {
                       '/AuthScreen': (BuildContext context) => AuthScreen(),
                       '/ChooseUserType': (BuildContext context) =>
                           ChooseUserType(),
-                          '/SchoolReportHistory': (BuildContext context) =>
-                         SchoolReportHistory(),
-                         '/SchoolHomePage': (BuildContext context) => SchoolHome(),
-                    }
-                  )
-                )
-              );
+                      '/SchoolReportHistory': (BuildContext context) =>
+                          SchoolReportHistory(),
+                      '/SchoolHomePage': (BuildContext context) => SchoolHome(),
+                      '/AuthorityHomePage': (BuildContext context) =>
+                          AuthorityHome(),
+                      '/AuthorityReportHistory': (BuildContext context) =>
+                          AuthorityReportHistory()
+                    })));
   }
 }

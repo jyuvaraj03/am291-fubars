@@ -3,12 +3,12 @@ import 'package:intl/intl.dart';
 
 import '../../school/view_reports/reportItem.dart';
 
-class Authority extends StatefulWidget {
+class AuthorityReportHistory extends StatefulWidget {
   @override
-  _AuthorityState createState() => _AuthorityState();
+  _AuthorityReportHistoryState createState() => _AuthorityReportHistoryState();
 }
 
-class _AuthorityState extends State<Authority> {
+class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
   var _month = [
     'January',
     'February',
@@ -27,7 +27,7 @@ class _AuthorityState extends State<Authority> {
   //Auth auth = new Auth();
   //List<dynamic> responseData = [];
 
-  Future<String> _fetchData() async{
+  Future<String> _fetchData() async {
     return "hi";
   }
 
@@ -97,4 +97,5 @@ class _AuthorityState extends State<Authority> {
     setState(() {
       this._currentItemSelected = newValueSelected;
     });
-  }}
+  }
+}

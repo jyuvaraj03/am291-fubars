@@ -22,7 +22,7 @@ class Auth with ChangeNotifier {
     return 'false';
   }
 
-  bool get isAuth {
+  bool get isToken {
     return token != null;
   }
 
@@ -60,9 +60,10 @@ class Auth with ChangeNotifier {
     data['password'] = password;
     final response = await http.post(url, body: data);
     if (response.statusCode == 200) {
+      print("log in " + jsonDecode(response.body).toString());
       _token = jsonDecode(response.body)['auth_token'];
       tokenPref = await SharedPreferences.getInstance();
-      tokenPref.setString("token", "hi");
+      tokenPref.setString("key", _token);
       print('logged in');
       print("Logged in token" + _token);
       notifyListeners();
@@ -71,6 +72,21 @@ class Auth with ChangeNotifier {
       print('login failed');
     }
     //print(token);
+  }
+
+  Future<String> getTokenPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final tokenValue = prefs.getString("key");
+    print("pref in auth" + tokenValue.toString());
+    print("get Pref" + prefs.getString("key"));
+    return tokenValue;
+  }
+
+  Future<bool> getUserTypePref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userType = prefs.getBool("isauth");
+    print("user type " + userType.toString());
+    return userType;
   }
 
   Future<void> actualLogin(String username, String password) async {
@@ -90,7 +106,10 @@ class Auth with ChangeNotifier {
           "Content-Type": "application/json"
         },
       );
+     // print("actual log in" + jsonDecode(res.body));
       _isAuthority = jsonDecode(res.body)['is_authority'];
+      tokenPref = await SharedPreferences.getInstance();
+      tokenPref.setString("key", _token.toString());
       print(_isAuthority);
       notifyListeners();
       //return _token;
