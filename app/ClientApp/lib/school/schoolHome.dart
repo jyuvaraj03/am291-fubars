@@ -14,19 +14,30 @@ class _SchoolHomeState extends State<SchoolHome> {
   TextEditingController _attendanceController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isAttendance = false;
-  String todayDate;
+  DateTime pickedDate;
 
   static const _year = 365;
   String selectedDate;
   bool dateSelected = false;
 
+  var weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     setState(() {
-      selectedDate = _getDate();
-      dateSelected = true;
+      if (weekDays.contains(DateFormat('E').format(DateTime.now()))) {
+        selectedDate = _getDate();
+        dateSelected = true;
+        pickedDate = DateTime.now();
+      } else {
+        Fluttertoast.showToast(
+            msg: "Today is not a Week Day",
+            toastLength: Toast.LENGTH_SHORT,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 14.0);
+      }
     });
   }
 
@@ -51,6 +62,7 @@ class _SchoolHomeState extends State<SchoolHome> {
         }
       },
       child: Scaffold(
+        drawer: _buildDrawer(),
         appBar: AppBar(
           title: Text("Home"),
         ),
@@ -62,121 +74,66 @@ class _SchoolHomeState extends State<SchoolHome> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 //crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _selectDateWidget(),
-                    ],
+                  _selectDateWidget(),
+                  SizedBox(
+                    height: 50,
                   ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 15),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Enter Today's Attendance",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 23),
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Color.fromRGBO(220, 220, 220, 1),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 18, right: 18),
-                              child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  controller: _attendanceController,
-                                  onSaved: (String value) {},
-                                  validator: (String value) {
-                                    return value.trim().isEmpty
-                                        ? "* required"
-                                        : null;
-                                  },
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Attendance",
-                                      hintStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18))),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              color: Colors.green[400],
-                              padding: EdgeInsets.all(8),
-                              onPressed: () {
-                                if (!isAttendance) {
-                                  Provider.of<PostSchoolCount>(context,
-                                          listen: false)
-                                      .postStudentCount(
-                                          _attendanceController.text
-                                              .toString(),
-                                          _getDate());
-                                  setState(() {
-                                    isAttendance = true;
-                                    _attendanceController.clear();
-                                    //_setPostStatus();
-                                  });
-                                  Fluttertoast.showToast(
-                                      msg: "Successfully submitted",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      backgroundColor: Colors.white,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          "Attendance has been submitted already",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      backgroundColor: Colors.white,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
-                                }
-                              },
-                              child: Text("Submit",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0, bottom: 5),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Enter Attendance",
+                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      //margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(220, 220, 220, 1),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            left: 18, right: 18, bottom: 10, top: 10),
+                        padding: EdgeInsets.all(2),
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: _attendanceController,
+                            validator: (String value) {
+                              return value.trim().isEmpty ? "* required" : null;
+                            },
+                            decoration: InputDecoration(
+                                isDense: true,
+                                border: InputBorder.none,
+                                hintText: "Attendance",
+                                hintStyle: TextStyle(
+                                    color: Colors.black, fontSize: 18))),
+                      ),
                     ),
                   ),
-
-                  // Padding(
-                  //     padding: const EdgeInsets.all(15.0),
-                  //     child: RaisedButton(
-                  //       disabledTextColor: Colors.red,
-                  //       splashColor: Color.fromRGBO(97, 227, 236, 1),
-                  //       color: Color.fromRGBO(220, 220, 220, 1),
-                  //       onPressed: () {
-                  //         Navigator.pushNamed(
-                  //             context, '/SchoolReportHistory');
-                  //       },
-                  //       child: Text(
-                  //         "Reports History",
-                  //         style: TextStyle(color: Colors.black),
-                  //       ),
-                  //     )),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: Colors.green[400],
+                        padding: EdgeInsets.all(8),
+                        onPressed: () {
+                          _submitData();
+                        },
+                        child: Text("Submit",
+                            style: TextStyle(
+                              color: Colors.white,
+                            )),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -184,6 +141,27 @@ class _SchoolHomeState extends State<SchoolHome> {
         ),
       ),
     );
+  }
+
+  void _submitData() {
+    if (!dateSelected || !_formKey.currentState.validate()) {
+      Fluttertoast.showToast(
+          msg: "Please Enter Valid Data",
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          fontSize: 16.0);
+
+      return;
+    }
+    if (dateSelected) {
+      Provider.of<PostSchoolCount>(context, listen: false).postStudentCount(
+          _attendanceController.text.toString(), selectedDate);
+      setState(() {
+        _attendanceController.clear();
+      });
+      return;
+    }
   }
 
   Widget _selectDateWidget() {
@@ -206,7 +184,7 @@ class _SchoolHomeState extends State<SchoolHome> {
             ),
           ),
           Text(
-            dateSelected ? selectedDate : " ",
+            dateSelected ? DateFormat("yMMMMd").format(pickedDate) : " ",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -227,9 +205,42 @@ class _SchoolHomeState extends State<SchoolHome> {
     DateFormat dateFormat = DateFormat('yyyy/MM/dd');
     if (picked != null) {
       setState(() {
-        selectedDate = dateFormat.format(picked);
-        dateSelected = true;
+        if (weekDays.contains(DateFormat('E').format(picked))) {
+          selectedDate = dateFormat.format(picked);
+          pickedDate = picked;
+          dateSelected = true;
+        } else {
+          Fluttertoast.showToast(
+              msg: "Selected Day is not a Week Day",
+              toastLength: Toast.LENGTH_SHORT,
+              backgroundColor: Colors.white,
+              textColor: Colors.black,
+              fontSize: 14.0);
+        }
       });
     }
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+        child: Column(
+      children: <Widget>[
+        AppBar(
+          title: Text("SIH"),
+          automaticallyImplyLeading: false,
+        ),
+        ListTile(
+          title: Text("Reports"),
+          onTap: () {
+            Navigator.pushNamed(context, '/SchoolReportHistory');
+          },
+        ),
+        ListTile(
+          title: Text("Settings"),
+          onTap: () {},
+        ),
+        ListTile(title: Text("Help"), onTap: () {})
+      ],
+    ));
   }
 }

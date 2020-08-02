@@ -118,7 +118,15 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
                     future: _fetchData(),
                     builder: (context, snapshot) {
                       //print(snapshot.toString());
-                      if (!snapshot.hasData) return CircularProgressIndicator();
+                      if (!snapshot.hasData)
+                        return Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 6.0,
+                            //any color you want
+                          ),
+                        );
                       return ReportsItem(snapshot.data);
                     })),
           ],

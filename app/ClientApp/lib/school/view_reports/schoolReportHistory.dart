@@ -15,26 +15,30 @@ class SchoolReportHistory extends StatefulWidget {
 }
 
 class _SchoolReportHistoryState extends State<SchoolReportHistory> {
-
   Auth auth = new Auth();
- List<dynamic> responseData = [];
+  List<dynamic> responseData = [];
   Future<List<dynamic>> _fetchData() async {
     final tokenPref = await SharedPreferences.getInstance();
     var authTokenn = tokenPref.getString("key");
-    const url = 'https://floating-badlands-95462.herokuapp.com/api/schools/me/reports/list';
+    const url =
+        'https://floating-badlands-95462.herokuapp.com/api/schools/me/reports/list';
     final response = await http.get(
       url,
-      headers: {"Authorization": "Token $authTokenn",
-        "Content-Type": "application/json"},      
+      headers: {
+        "Authorization": "Token $authTokenn",
+        "Content-Type": "application/json"
+      },
     );
     responseData = jsonDecode(response.body);
     print(responseData);
-    print(responseData[0]["items"].map((item)=>item['item']).toList().toString().runtimeType);
+    print(responseData[0]["items"]
+        .map((item) => item['item'])
+        .toList()
+        .toString()
+        .runtimeType);
     responseData = new List<dynamic>.from(responseData);
     return responseData;
-
   }
-
 
   var _month = [
     'January',
@@ -51,7 +55,7 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
     'December'
   ];
   var _currentItemSelected;
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -106,7 +110,15 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
                     future: _fetchData(),
                     builder: (context, snapshot) {
                       //print(snapshot.toString());
-                      if (!snapshot.hasData) return CircularProgressIndicator();
+                      if (!snapshot.hasData)
+                        return Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 6.0,
+                            //any color you want
+                          ),
+                        );
                       return ReportsItem(snapshot.data);
                     })),
           ],
