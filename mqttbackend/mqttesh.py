@@ -6,10 +6,10 @@ import requests
 from datetime import date
 
 #Update report base url
-url = "http://localhost:8000/api/estimate/reports/"
+url = "https://floating-badlands-95462.herokuapp.com/api/estimate/reports/"
 
 #Setting for_date
-today = date.isoformat(date.today())
+# today = date.isoformat(date.today())
 
 #For the food topic
 food_set = set({})
@@ -21,9 +21,13 @@ max_persons = 0
 data = {
 	"school": 2,
 	"student_count": max_persons,
-	"for_date": today,
+	"for_date": '2020-08-05',
 	"items": []
 }
+
+response = requests.post(url,data)
+report_id = response.json()
+report_id = report_id["id"]
 
 #The congif_mqtt.ini file is used
 config = ConfigParser()
@@ -37,7 +41,7 @@ broker_address, port, main_topic, food_topic = (
 
 
 print("Creating new instance")
-client = mqtt.Client("",userdata = {'max_p':max_persons ,'food':food_set})
+client = mqtt.Client("",userdata = data)
 
 
 
@@ -64,21 +68,21 @@ def on_message(client, userdata, message):
 	if topicesh == main_topic:
 		temp = record.get("counts")
 		no_of_persons = int(temp.get("person")) 
-		userdata["max_p"] = max(no_of_persons,userdata["max_p"])
-		client.user_data_set(userdata)
-		# # if no_of_persons > max_persons:
-		# userdata_set(max_persons) = max(no_of_persons,max_persons)
-		# print(no_of_persons)
-		# 	data["student_count"] = max_persons
-		# 	requests.post(url,data = data)
-	elif topicesh == food_topic:
-		food_items = record.get("objects")
-		for food_item in food_items:
-			if food_item not in userdata["food"]:
-				userdata["food"].add(food_item)
+		if no_of_persons > userdata["student_count"]:
+			userdata["student_count"] = max(no_of_persons,userdata["student_count"])
 			client.user_data_set(userdata)
-				# data['items'].append({"item":food_item})
-				# requests.post(url,data = data)
+			requests.put(url+report_id,userdata)
+
+	elif topicesh == food_topic:
+		food_items = list(record.get("objects"))
+		existing_data = [userdata["items"][i]["item"] for i in range(len(userdata["items"]))]
+		for food_item in food_items:
+			if food_item not in existing_data:
+				existing_data.append(food_item)
+				userdata["items"].append({"item":food_item})
+				client.user_data_set(userdata)
+				requests.put(url+report_id,userdata)
+				
 	print(userdata)
 
 client.on_connect = on_connect

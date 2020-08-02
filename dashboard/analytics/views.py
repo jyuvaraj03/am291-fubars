@@ -21,7 +21,7 @@ def index(req):
 		return redirect('index')
 
 	else:
-		with open('../data/mis13.json','r') as f:
+		with open('./data/mis13.json','r') as f:
 			obj = json.load(f)
 		
 	context = {
@@ -32,4 +32,116 @@ def index(req):
 		'email':'authority@fubars.com'
 	}
 
-	return render(req,'analytics/dashboard.html',context)
+	return render(req,'analytics/Dashboard_index.html',context)
+# from django.shortcuts import render
+# import json
+
+# # Create your views here.
+# def index(req):
+# 	with open('../data/mis13.json','r') as f:
+# 		obj = json.load(f)
+
+# 	context = {
+# 		'title':'Dashboard',
+# 		'data':obj['data'],
+# 		'labels':obj['labels'],
+# 		'label':obj['title']
+# 	}
+# 	return render(req,'analytics/dashboard.html',context)
+
+def complaints(req):
+	obj = {'data':[],'labels':[],'title':''}
+
+	if req.method == 'POST':
+		filename = '../data/'+req.POST['type']+req.POST['year']+'.json'
+		with open(filename,'r') as f:
+			obj = json.load(f)
+
+		# context = {
+		# 	'title':'Schools Report Monitoring Dashboard',
+		# 	'data':obj['data'],
+		# 	'labels':obj['labels'],
+		# 	'label':obj['title'],
+		# 	'email':'authority@fubars.com'
+		# }
+
+		return redirect('index')
+
+	else:
+		with open('./data/mis13.json','r') as f:
+			obj = json.load(f)
+		
+	context = {
+		'title':'Schools Report Monitoring Dashboard',
+		'data':obj['data'],
+		'labels':obj['labels'],
+		'label':obj['title'],
+		'email':'authority@fubars.com'
+	}
+
+	return render(req,'analytics/Dashboard_index.html',context)
+def attendance(req):
+	obj = {'data':[],'labels':[],'title':''}
+
+	if req.method == 'POST':
+		filename = '../data/'+req.POST['type']+req.POST['year']+'.json'
+		with open(filename,'r') as f:
+			obj = json.load(f)
+
+		# context = {
+		# 	'title':'Schools Report Monitoring Dashboard',
+		# 	'data':obj['data'],
+		# 	'labels':obj['labels'],
+		# 	'label':obj['title'],
+		# 	'email':'authority@fubars.com'
+		# }
+
+		return redirect('index')
+
+	else:
+		with open('./data/mis13.json','r') as f:
+			obj = json.load(f)
+		
+	context = {
+		'title':'Schools Report Monitoring Dashboard',
+		'data':obj['data'],
+		'labels':obj['labels'],
+		'label':obj['title'],
+		'email':'authority@fubars.com'
+	}
+
+	return render(req,'analytics/Dashboard_index.html',context)
+def allotment(req):
+	obj = {'data':[],'labels':[],'title':''}
+
+	if req.method == 'POST':
+		filename = '../data/'+req.POST['type']+req.POST['year']+'.json'
+		with open(filename,'r') as f:
+			obj = json.load(f)
+
+		# context = {
+		# 	'title':'Schools Report Monitoring Dashboard',
+		# 	'data':obj['data'],
+		# 	'labels':obj['labels'],
+		# 	'label':obj['title'],
+		# 	'email':'authority@fubars.com'
+		# }
+
+		return redirect('index')
+
+	else:
+		with open('./data/mis13.json','r') as f:
+			obj = json.load(f)
+		
+	context = {
+		'title':'Schools Report Monitoring Dashboard',
+		'data':obj['data'],
+		'labels':obj['labels'],
+		'label':obj['title'],
+		'email':'authority@fubars.com'
+	}
+
+	return render(req,'analytics/Dashboard_index.html',context)
+
+def live(req):
+	pass
