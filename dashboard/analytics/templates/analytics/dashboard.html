@@ -1,7 +1,8 @@
+{% extends "analytics/Dashboard_index.html" %}
 {% load static %}
-{% extends "analytics/Dashboard_index.html"}
+
 <!-- Main Chart Goes -->
-{% block content}
+{% block content %}
 <div class="container">
 			<form class="filter" method="POST" action="dashboard">
 				{% csrf_token %}
