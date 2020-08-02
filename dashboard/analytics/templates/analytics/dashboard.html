@@ -14,26 +14,43 @@
 			<h1 class="heading">{{ title }}</h1>
 			<a class="link" href="#">{{email}}</a>
 		</div>
+
+		<ul class="nav-container">
+			<li class="navitem">
+				<a class="navlink" href="dashboard/allotment">Rice Allotment</a>
+			</li>
+			<li class="navitem">
+				<a class="navlink" href="/attendance">Attendance</a>
+			</li>
+			<li class="navitem">
+				<a class="navlink" href="/complaints">Complaints</a>
+			</li>
+			<li class="navitem">
+				<a class="navlink" href="/live">Live Feed</a>
+			</li>
+		</ul>	
 		
 		<div class="container">
-			<div class="filter">
+			<form class="filter" method="POST" action="dashboard">
+				{% csrf_token %}
 				<div class="dropdown-container">
 					<label class="dropdown-label">Complaint Type</label>
-					<select class="dropdown">
+					<select name="type" class="dropdown">
 						<option class="dropdown-option" value="mis">Misappropriations</option>
 						<option class="dropdown-option" value="irr">Irregularities</option>
 					</select>
 				</div>
 				<div class="dropdown-container">
 					<label class="dropdown-label">Year</label>
-					<select class="dropdown">
+					<select name="year" class="dropdown">
 						<option class="dropdown-option" value="13">2013</option>
 						<option class="dropdown-option" value="14">2014</option>
 						<option class="dropdown-option" value="15">2015</option>
 						<option class="dropdown-option" value="16">2016</option>
 					</select>
 				</div>
-			</div>
+				<Button class="go" onclick="log()">Go</Button>
+			</form>
 
 			<div class="section-title">Complaints Section</div>
 			
@@ -43,25 +60,29 @@
 		</div>
 	</body>
 	<script>
-	var labels = "{{labels}}".replace(/&#x27;/g,'"').replace(/&amp; /g,'&')
-	labels = JSON.parse(labels)
-	let data = JSON.parse("{{data}}")
-	var ctx = document.getElementById('chart').getContext('2d');
-	var myChart = new Chart(ctx, {
-	    type: 'bar',
-	    data: {
-	        labels: labels,
-	        datasets: [{
-	            label: "{{label}}",
-	            data: data,
-	            backgroundColor:'rgba(225,110,90,0.5)',
-	            borderColor: 'rgba(255, 90, 70, 0.8)',
-	            borderWidth: 1
-	        }]
-	    },
-	    options: {
-	    	responsive:false
-	    }
-	});
+		const log = ()=>{console.log("hi")};
+		var labels = "{{labels}}".replace(/&#x27;/g,'"').replace(/&amp; /g,'&')
+		labels = JSON.parse(labels)
+		let data = JSON.parse("{{data}}")
+		var ctx = document.getElementById('chart').getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: labels,
+		        datasets: [{
+		            label: "{{label}}",
+		            data: data,
+		            backgroundColor:'rgba(225,110,90,0.5)',
+		            borderColor: 'rgba(255, 90, 70, 0.8)',
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		    	responsive:false
+		    }
+		});
+
+		const onclick=()=>{console.log("hi");}
+
 	</script>
 </html>
