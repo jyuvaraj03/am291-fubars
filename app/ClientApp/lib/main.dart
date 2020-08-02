@@ -73,26 +73,27 @@ class _MyAppState extends State<MyApp> {
             builder: (ctx, auth, _) => MaterialApp(
                     debugShowCheckedModeBanner: false,
                     title: 'MyShop',
-                    home: FutureBuilder(
-                      future: auth.getTokenPref(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<String> snapshot) {
-                        if (snapshot.data != null) {
-                          print("snapshot " + snapshot.data);
-                          return FutureBuilder(
-                              future: auth.getUserTypePref(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<bool> snapshot) {
-                                if (snapshot.data == true)
-                                  return AuthorityHome();
-                                else
-                                  return SchoolHome();
-                              });
-                        } else {
-                          return AuthScreen();
-                        }
-                      },
-                    ),
+                    home: SchoolHome(),
+                    // FutureBuilder(
+                    //   future: auth.getTokenPref(),
+                    //   builder: (BuildContext context,
+                    //       AsyncSnapshot<String> snapshot) {
+                    //     if (snapshot.data != null) {
+                    //       print("snapshot " + snapshot.data);
+                    //       return FutureBuilder(
+                    //           future: auth.getUserTypePref(),
+                    //           builder: (BuildContext context,
+                    //               AsyncSnapshot<bool> snapshot) {
+                    //             if (snapshot.data == true)
+                    //               return AuthorityHome();
+                    //             else
+                    //               return SchoolHome();
+                    //           });
+                    //     } else {
+                    //       return AuthScreen();
+                    //     }
+                    //   },
+                    // ),
                     routes: {
                       '/AuthScreen': (BuildContext context) => AuthScreen(),
                       '/ChooseUserType': (BuildContext context) =>
