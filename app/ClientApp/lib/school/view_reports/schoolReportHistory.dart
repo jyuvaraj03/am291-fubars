@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'reportItem.dart';
 
@@ -18,11 +19,12 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
   Auth auth = new Auth();
  List<dynamic> responseData = [];
   Future<List<dynamic>> _fetchData() async {
-     var authToken = Provider.of<AuthHelper>(context, listen: false).returnToken();
-    const url = 'https://floating-badlands-95462.herokuapp.com/api/schools/me/reports/';
+    final tokenPref = await SharedPreferences.getInstance();
+    var authTokenn = tokenPref.getString("key");
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/schools/me/reports/list';
     final response = await http.get(
       url,
-      headers: {"Authorization": "Token $authToken",
+      headers: {"Authorization": "Token $authTokenn",
         "Content-Type": "application/json"},      
     );
     responseData = jsonDecode(response.body);

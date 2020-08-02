@@ -74,7 +74,7 @@ class _ReportsItemState extends State<ReportsItem> {
                 ListView.builder(
               itemBuilder: (BuildContext ctxt, int index) {
                   //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
-                  return new ReportCard(widget.reports[index]["actual_student_count"],'dosa',widget.reports[index]["estimate_student_count"],'');
+                  return new ReportCard(widget.reports[index]["school"]["name"],'true', widget.reports[index]["for_date"]);
                 },
               itemCount: widget.reports.length,
               shrinkWrap: true,

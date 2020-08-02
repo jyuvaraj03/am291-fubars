@@ -22,8 +22,7 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
   Future<List<dynamic>> _fetchData() async {
     final tokenPref = await SharedPreferences.getInstance();
     var authTokenn = tokenPref.getString("key");
-    var authToken =
-        Provider.of<AuthHelper>(context, listen: false).returnToken();
+    print(authTokenn);
     const url =
         'https://floating-badlands-95462.herokuapp.com/api/authorities/me/reports/';
     final response = await http.get(
@@ -36,10 +35,12 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
     responseData = jsonDecode(response.body);
     print(responseData);
     for (int i = 0; i < responseData.length; i++) {
-      print(responseData[i]["actual_items"]
-          .map((item) => item['item'])
-          .toList()
-          .toString());
+      print(responseData[i]["school"]["name"]);
+      print(responseData[i]["for_date"]);
+      // print(responseData[i]["actual_items"]
+      //     .map((item) => item['item'])
+      //     .toList()
+      //     .toString());
     }
     responseData = new List<dynamic>.from(responseData);
     return responseData;
