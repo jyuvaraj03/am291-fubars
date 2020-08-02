@@ -53,7 +53,7 @@ class _ReportsItemState extends State<ReportsItem> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Month",
+                      "Month", // month dynamically
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                     ),
                   ),
@@ -74,7 +74,7 @@ class _ReportsItemState extends State<ReportsItem> {
                 ListView.builder(
               itemBuilder: (BuildContext ctxt, int index) {
                   //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
-                  return new ReportCard(widget.reports[index]["school"]["name"],'true', widget.reports[index]["for_date"]);
+                  return new ReportCard(widget.reports[index]["school"]["name"],true, widget.reports[index]["for_date"]);
                 },
               itemCount: widget.reports.length,
               shrinkWrap: true,
