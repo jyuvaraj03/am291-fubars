@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
 from django.http import Http404
 from .permissions import IsOwnerOrReadOnly, IsSchoolOwner, IsOwner
-from .serializers import SchoolReportSerializer, AuthoritySerializer, SchoolSerializer, DistrictSerializer, AuthorityReportSerializer, EstimateReportSerializer
+from .serializers import SchoolReportSerializer, SchoolReportCreateSerializer, AuthoritySerializer, SchoolSerializer, DistrictSerializer, AuthorityReportSerializer, EstimateReportSerializer
 from .models import Report, School, Authority, District
 
 
@@ -71,7 +71,7 @@ class AuthorityReportList(APIView):
         for school in schools:
 
             actual_reports = reports.filter(
-                actual_report__isnull=True, school=school)
+                added_by_school=True, school=school)
             for actual_report in actual_reports:
                 try:
                     estimate_report = actual_report.estimate_report
@@ -112,9 +112,23 @@ class SchoolMeRetrieveUpdate(MeRetrieveUpdate):
     permission_classes = [IsAuthenticated, IsOwner]
 
 
-class SchoolReportListCreate(generics.ListCreateAPIView):
+class SchoolReportCreate(generics.CreateAPIView):
     """
     Creates new reports by school.
+    Request has to be initiated by the owner school.
+    """
+    queryset = Report.objects.all()
+    serializer_class = SchoolReportCreateSerializer
+    permission_classes = [IsAuthenticated, IsSchoolOwner]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        school = School.objects.get(user=user)
+        return serializer.save(school=school)
+
+
+class SchoolReportList(generics.ListAPIView):
+    """
     Lists all the reports created by a school.
     Request has to be initiated by the owner school.
     """
@@ -125,22 +139,27 @@ class SchoolReportListCreate(generics.ListCreateAPIView):
     def list(self, request):
         queryset = self.get_queryset()
         serializer = SchoolReportSerializer(queryset.filter(
-            school__user=request.user, actual_report__isnull=True), many=True)
+            school__user=request.user, added_by_school=True), many=True)
         return Response(serializer.data)
 
-    def perform_create(self, serializer):
-        user = self.request.user
-        school = School.objects.get(user=user)
-        return serializer.save(school=school)
 
-
-class SchoolReportRetrieveUpdate(generics.RetrieveUpdateAPIView):
+class SchoolReportRetrieve(generics.RetrieveAPIView):
     """
-    Retrieve or update reports created by currently
+    Retrieve reports created by currently
     logged in school.
     """
-    queryset = Report.objects.filter(actual_report__isnull=True)
+    queryset = Report.objects.filter(added_by_school=True)
     serializer_class = SchoolReportSerializer
+    permission_classes = [IsAuthenticated, IsSchoolOwner]
+
+
+class SchoolReportUpdate(generics.UpdateAPIView):
+    """
+    Update reports created by currently
+    logged in school.
+    """
+    queryset = Report.objects.filter(added_by_school=True)
+    serializer_class = SchoolReportCreateSerializer
     permission_classes = [IsAuthenticated, IsSchoolOwner]
 
 
@@ -160,7 +179,7 @@ class EstimateReportListCreate(generics.ListCreateAPIView):
 
     def list(self, request):
         queryset = self.get_queryset()
-        serializer = EstimateReportSerializer(queryset.filter(actual_report__isnull=False), many=True)
+        serializer = EstimateReportSerializer(queryset.filter(added_by_school=False), many=True)
         return Response(serializer.data)
 
     def perform_create(self, serializer):
@@ -168,5 +187,5 @@ class EstimateReportListCreate(generics.ListCreateAPIView):
 
 class EstimateReportRetrieveUpdate(generics.RetrieveUpdateAPIView):
 
-    queryset = Report.objects.filter(actual_report__isnull=False)
+    queryset = Report.objects.filter(added_by_school=False)
     serializer_class = EstimateReportSerializer
