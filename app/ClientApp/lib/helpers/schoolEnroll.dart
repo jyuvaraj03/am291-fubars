@@ -12,7 +12,7 @@ class SchoolEnroll with ChangeNotifier {
   SchoolEnroll(this.authToken);
 
   Future<void> schoolEnroll(String districtId, String name) async {
-    const url = 'http://127.0.0.1:8000/api/schools/';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/schools/';
     print('school enroll token : $authToken');
     String id = districtId.toString();
     //print("Authorization": "Token {$authToken}");

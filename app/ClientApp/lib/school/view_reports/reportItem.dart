@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'reportCard.dart';
 
 class ReportsItem extends StatefulWidget {
+
+  List<dynamic> reports = new List<dynamic>();
+
+  ReportsItem(this.reports);
+  
   @override
   _ReportsItemState createState() => _ReportsItemState();
 }
@@ -45,17 +50,18 @@ class _ReportsItemState extends State<ReportsItem> {
                 ],
               ),
             ),
-           
-                ReportCard(),
-                ReportCard(),
-                ReportCard(),
-                
-             
-
-            // ReportCard(
-            //     widget.reports.numberOfStudents, widget.reports.menuServed),
-            // ReportCard(
-            //     widget.reports.numberOfStudents, widget.reports.menuServed),
+            Column(
+              children: <Widget>[
+                ListView.builder(
+              itemBuilder: (BuildContext ctxt, int index) {
+                  //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
+                  return new ReportCard(widget.reports[index]["actual_student_count"]);
+                },
+              itemCount: widget.reports.length,
+              shrinkWrap: true,
+            )
+              ],
+            )
           ],
         ),
       ),

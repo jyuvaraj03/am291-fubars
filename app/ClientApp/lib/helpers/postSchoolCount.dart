@@ -10,13 +10,13 @@ class PostSchoolCount with ChangeNotifier{
   PostSchoolCount(this.authToken);
 
   Future <void> postStudentCount (String studentCount, String todayDate) async {
-    const url = 'http://127.0.0.1:8000/api/schools/me/reports/';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/schools/me/reports/';
     print(authToken);
     print(studentCount);
     print(studentCount.runtimeType);
     Map data = {
       'student_count': studentCount,
-      'for_date': todayDate
+      'for_date': '2020-08-04'
     };
     // responsedata.map((json) => json['item']).toList() 
     final response = await http.post(

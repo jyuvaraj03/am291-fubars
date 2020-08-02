@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ReportCard extends StatelessWidget{
-  //final int student_count;
+  final int student_count;
   //final String items;
 
-  //ReportCard(this.student_count,this.items);
+  ReportCard(this.student_count);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ReportCard extends StatelessWidget{
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Text('No. of students: '),
+              Text('No. of students: $student_count'),
               
           ],
           ),

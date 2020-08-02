@@ -17,7 +17,7 @@ class _AuthorityHomeState extends State<AuthorityHome> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(34, 40, 49, 1),
       appBar: AppBar(title: Text("Home")),
-      body: Center(child: Text("Welcome!")),
+      body: Center(child: Text("Welcome! Analytical dashboard")),
       drawer: Drawer(
           child: Column(
         children: <Widget>[

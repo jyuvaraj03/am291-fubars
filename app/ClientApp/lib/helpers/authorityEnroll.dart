@@ -13,7 +13,7 @@ class AuthorityEnroll with ChangeNotifier {
   AuthorityEnroll(this.authToken);
 
   Future<void> enroll(String districtId) async {
-    const url = 'http://127.0.0.1:8000/api/authorities/';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/authorities/';
     print('authority enroll token : $authToken');
 
     String id = districtId.toString();

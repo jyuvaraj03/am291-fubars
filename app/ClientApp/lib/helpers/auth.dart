@@ -35,7 +35,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> signup(String username, String email, String password) async {
-    const url = 'http://127.0.0.1:8000/api/users/';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/users/';
     var data = new Map<String, dynamic>();
     data['username'] = username;
     data['email'] = email;
@@ -55,7 +55,7 @@ class Auth with ChangeNotifier {
   // 'Authorization: Token _tokenId'
 
   Future<void> login(String username, String password) async {
-    const url = 'http://127.0.0.1:8000/api/token/login';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/token/login';
     var data = new Map<String, dynamic>();
     data['username'] = username;
     data['password'] = password;
@@ -91,7 +91,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> actualLogin(String username, String password) async {
-    const url = 'http://127.0.0.1:8000/api/token/login';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/token/login';
     var data = new Map<String, dynamic>();
     data['username'] = username;
     data['password'] = password;
@@ -99,7 +99,7 @@ class Auth with ChangeNotifier {
     if (response.statusCode == 200) {
       _token = jsonDecode(response.body)['auth_token'];
       print('actual logged in');
-      const url1 = 'http://127.0.0.1:8000/api/users/me';
+      const url1 = 'https://floating-badlands-95462.herokuapp.com/api/users/me';
       final res = await http.get(
         url1,
         headers: {

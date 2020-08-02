@@ -1,7 +1,12 @@
+import 'package:ClientApp/helpers/auth.dart';
+import 'package:ClientApp/helpers/authHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
-import '../../school/view_reports/reportItem.dart';
+import './reportItem.dart';
 
 class AuthorityReportHistory extends StatefulWidget {
   @override
@@ -9,6 +14,30 @@ class AuthorityReportHistory extends StatefulWidget {
 }
 
 class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
+
+
+  Auth auth = new Auth();
+ List<dynamic> responseData = [];
+  Future<List<dynamic>> _fetchData() async {
+     var authToken = Provider.of<AuthHelper>(context, listen: false).returnToken();
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/authorities/me/reports/';
+    final response = await http.get(
+      url,
+      headers: {"Authorization": "Token $authToken",
+        "Content-Type": "application/json"},      
+    );
+    responseData = jsonDecode(response.body);
+    print(responseData.length);
+    for(int i=0; i<responseData.length; i++){
+      print(responseData[i]["actual_items"].map((item)=>item['item']).toList().toString());
+    }
+    responseData = new List<dynamic>.from(responseData);
+    return responseData;
+
+  }
+
+
+
   var _month = [
     'January',
     'February',
@@ -26,10 +55,6 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
   var _currentItemSelected;
   //Auth auth = new Auth();
   //List<dynamic> responseData = [];
-
-  Future<String> _fetchData() async {
-    return "hi";
-  }
 
   @override
   void initState() {
@@ -80,15 +105,14 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
                 ),
               ),
             ),
-            ReportsItem()
-            // Expanded(
-            //     child: FutureBuilder<List<dynamic>>(
-            //         future: _fetchData(),
-            //         builder: (context, snapshot) {
-            //           //print(snapshot.toString());
-            //           if (!snapshot.hasData) return CircularProgressIndicator();
-            //           return ReportsItem();
-            //         })),
+            Expanded(
+                child: FutureBuilder<List<dynamic>>(
+                    future: _fetchData(),
+                    builder: (context, snapshot) {
+                      //print(snapshot.toString());
+                      if (!snapshot.hasData) return CircularProgressIndicator();
+                      return ReportsItem(snapshot.data);
+                    })),
           ],
         ));
   }

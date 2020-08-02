@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ReportCard extends StatelessWidget{
-  //final int student_count;
-  //final String items;
+  final int reported_student_count;
+  final String reported_items;
+  final int estimated_student_count;
+  final String estimated_items;
 
-  //ReportCard(this.student_count,this.items);
+  ReportCard(this.reported_student_count, this.reported_items, this.estimated_student_count, this.estimated_items);
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +23,17 @@ class ReportCard extends StatelessWidget{
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("10"),
-            Text("Friday")
+            Text("10", style: TextStyle(fontSize: 15)),
+            Text("Friday", style: TextStyle(fontSize: 15))
           ],
         ),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Text('No. of students: '),
-              Text('Menu Served: '),
+              Text('No. of students:'),
+              Text('Reported: $reported_student_count , Actual: $estimated_student_count'),
+              Text('Menu Served:'),
+              Text('Reported: $reported_items, Actual: $estimated_items')
           ],
           ),
       ),

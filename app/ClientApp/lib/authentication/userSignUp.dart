@@ -32,7 +32,7 @@ class _UserSignUpState extends State<UserSignUp> {
   var _selectedDistrict;
 
   Future<List<String>> _getDistrict() async {
-    const url = 'http://127.0.0.1:8000/api/districts/';
+    const url = 'https://floating-badlands-95462.herokuapp.com/api/districts/';
     //var data = new Map<String, dynamic>();
     final response = await http.get(
       url,
@@ -189,7 +189,9 @@ class ReporterSignUp extends StatelessWidget {
               child: TextFormField(
                   keyboardType: TextInputType.text,
                   controller: _schoolNameController,
-                  onSaved: (String value) {},
+                  onSaved: (String value) {
+
+                  },
                   validator: (String value) {
                     return value.trim().isEmpty ? "* required" : null;
                   },
