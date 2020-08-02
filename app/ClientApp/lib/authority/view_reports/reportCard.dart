@@ -1,3 +1,4 @@
+import 'package:ClientApp/authority/view_reports/reportDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -5,8 +6,12 @@ class ReportCard extends StatelessWidget{
   final String schoolName;
   final bool discrepancy;
   final String date;
+  final int reportedCount;
+  final int estimatedCount;
+  final String reportedMenu;
+  final String estimatedMenu;
   
-  ReportCard(this.schoolName, this.discrepancy, this.date);
+  ReportCard(this.schoolName, this.discrepancy, this.date, this.reportedCount, this.estimatedCount, this.reportedMenu, this.estimatedMenu);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,14 @@ class ReportCard extends StatelessWidget{
       ),
       child: ListTile(
         dense: true,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (ctx) => ReportDetail(schoolName, date, reportedCount, estimatedCount,reportedMenu, estimatedMenu)
+            )
+          );
+        },
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

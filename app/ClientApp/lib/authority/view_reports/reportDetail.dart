@@ -1,6 +1,23 @@
 import "package:flutter/material.dart";
 
 class ReportDetail extends StatelessWidget {
+
+  final String schoolName;
+  final String date;
+  final int reportedCount;
+  final int estimatedCount;
+  final String reportedMenu;
+  final String estimatedMenu;
+  
+  ReportDetail(
+    this.schoolName, 
+    this.date, 
+    this.reportedCount, 
+    this.estimatedCount, 
+    this.reportedMenu, 
+    this.estimatedMenu
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,10 +27,12 @@ class ReportDetail extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _schoolDetails(),
             _reportDetails(),
+            _schoolDetails(),
+            
           ],
         ),
       ),
@@ -42,7 +61,7 @@ class ReportDetail extends StatelessWidget {
                 children: [
                   TableRow(children: [
                     Text("Name"),
-                    Text('MVM'),
+                    Text('$schoolName'),
                   ]),
                   TableRow(children: [
                     Text("Location"),
@@ -98,7 +117,7 @@ class ReportDetail extends StatelessWidget {
                 children: [
                   TableRow(children: [
                     Text("Date"),
-                    Text('2020-08-04'),
+                    Text('$date'),
                   ]),
                   TableRow(children: [
                     Text("Attendance"),
@@ -107,8 +126,8 @@ class ReportDetail extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Reported: 25'),
-                          Text('Estimated: 20'),
+                          Text('Reported: $reportedCount'),
+                          Text('Estimated: $estimatedCount'),
                         ],
                       ),
                     ),
@@ -120,8 +139,8 @@ class ReportDetail extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Reported: [idli, sambar, egg]'),
-                          Text('Estimated: [idli, sambar]'),
+                          Text('Reported: $reportedMenu'),
+                          Text('Estimated: $estimatedMenu'),
                         ],
                       ),
                     ),

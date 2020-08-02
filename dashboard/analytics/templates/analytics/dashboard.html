@@ -1,36 +1,8 @@
 {% load static %}
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>{{ title }}</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'analytics/dashboard.css' %}"></link>
-	</head>
-	<body>
-		<div class="header">
-			<h1 class="heading">{{ title }}</h1>
-			<a class="link" href="#">{{email}}</a>
-		</div>
-
-		<ul class="nav-container">
-			<li class="navitem">
-				<a class="navlink" href="dashboard/allotment">Rice Allotment</a>
-			</li>
-			<li class="navitem">
-				<a class="navlink" href="/attendance">Attendance</a>
-			</li>
-			<li class="navitem">
-				<a class="navlink" href="/complaints">Complaints</a>
-			</li>
-			<li class="navitem">
-				<a class="navlink" href="/live">Live Feed</a>
-			</li>
-		</ul>	
-		
-		<div class="container">
+{% extends "analytics/Dashboard_index.html"}
+<!-- Main Chart Goes -->
+{% block content}
+<div class="container">
 			<form class="filter" method="POST" action="dashboard">
 				{% csrf_token %}
 				<div class="dropdown-container">
@@ -51,8 +23,6 @@
 				</div>
 				<Button class="go" onclick="log()">Go</Button>
 			</form>
-
-			<div class="section-title">Complaints Section</div>
 			
 			<div class="chart-container">
 				<canvas id="chart"></canvas>
@@ -85,4 +55,15 @@
 		const onclick=()=>{console.log("hi");}
 
 	</script>
-</html>
+{% endblock %}
+<!-- <!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'analytics/dashboard.css' %}"></link>
+	</head>
+	<body>
+</html> -->

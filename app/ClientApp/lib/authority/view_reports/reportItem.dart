@@ -23,12 +23,12 @@ class _ReportsItemState extends State<ReportsItem> {
     // TODO: implement initState
     super.initState();
     //responsedata.map((json) => json['item']).toList()
+    print(widget.reports.length);
     for(int i=0; i< widget.reports.length; i++){
-      actualItems = widget.reports[i]["actual_items"].map((item)=>item['item']).toList();
+      actualItems = widget.reports[i]["actual"]["items"].map((item)=>item['item']).toList();
       items.add(actualItems.toString());
-      estimatedItems = widget.reports[i]["estimate_items"].map((item)=>item['item']).toList();
-      items.add(actualItems.toString());
-      print(est_items);
+      estimatedItems = widget.reports[i]["estimate"]["items"].map((item)=>item['item']).toList();
+      est_items.add(actualItems.toString());
     }
     print(items);
   }
@@ -74,7 +74,8 @@ class _ReportsItemState extends State<ReportsItem> {
                 ListView.builder(
               itemBuilder: (BuildContext ctxt, int index) {
                   //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
-                  return new ReportCard(widget.reports[index]["school"]["name"],true, widget.reports[index]["for_date"]);
+                  //return new ReportCard(widget.reports[index]["school"]["name"],true, widget.reports[index]["for_date"],widget.reports[index]["student_count"],widget.reports[index]["estimate_student_count"],items[index],est_items[index]);
+                  return new ReportCard(widget.reports[index]["school"]["name"],true, widget.reports[index]["for_date"],widget.reports[index]["actual"]["student_count"],widget.reports[index]["estimate"]["student_count"],items[index],est_items[index]);
                 },
               itemCount: widget.reports.length,
               shrinkWrap: true,
