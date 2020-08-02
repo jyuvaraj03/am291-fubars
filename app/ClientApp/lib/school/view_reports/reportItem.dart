@@ -23,7 +23,7 @@ class _ReportsItemState extends State<ReportsItem> {
         color: Color.fromRGBO(93, 99, 108, 1),
         margin: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),

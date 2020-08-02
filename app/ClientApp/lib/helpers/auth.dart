@@ -107,12 +107,13 @@ class Auth with ChangeNotifier {
           "Content-Type": "application/json"
         },
       );
-     // print("actual log in" + jsonDecode(res.body));
+      // print("actual log in" + jsonDecode(res.body));
       _isAuthority = jsonDecode(res.body)['is_authority'];
       final tokenPref = await SharedPreferences.getInstance();
       tokenPref.setString("key", _token.toString());
       final userTypePref = await SharedPreferences.getInstance();
       userTypePref.setBool("isauth", _isAuthority);
+      print("user pref"+ userTypePref.getBool("isauth").toString());
       print(_isAuthority);
       notifyListeners();
       //return _token;

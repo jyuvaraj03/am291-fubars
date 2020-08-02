@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:ClientApp/helpers/postSchoolCount.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 class SchoolHome extends StatefulWidget {
   @override
   _SchoolHomeState createState() => _SchoolHomeState();
@@ -21,6 +21,9 @@ class _SchoolHomeState extends State<SchoolHome> {
   bool dateSelected = false;
 
   var weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  SharedPreferences tokenPref;
+  SharedPreferences userTypePref;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -239,8 +242,26 @@ class _SchoolHomeState extends State<SchoolHome> {
           title: Text("Settings"),
           onTap: () {},
         ),
-        ListTile(title: Text("Help"), onTap: () {})
+        ListTile(title: Text("Help"), onTap: () {}),
+        ListTile(
+            title: Text("Logout"),
+            onTap: () {
+              _clearPrefs();
+              Phoenix.rebirth(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/AuthScreen", (route) => false);
+            }),
       ],
     ));
+  }
+
+  void _clearPrefs() async {
+    final tokenPref = await SharedPreferences.getInstance();
+    final userTypePref = await SharedPreferences.getInstance();
+    setState(() {
+      print(tokenPref.getString("key"));
+      tokenPref.clear();
+      userTypePref.clear();
+    });
   }
 }

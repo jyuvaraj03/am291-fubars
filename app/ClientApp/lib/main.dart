@@ -5,7 +5,7 @@ import 'package:ClientApp/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'authority/authorityHome.dart';
 import 'authority/view_reports/authorityReportHistory.dart';
 import 'helpers/postSchoolCount.dart';
@@ -18,7 +18,7 @@ import 'helpers/authHelper.dart';
 import 'school/schoolHome.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Phoenix(child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {

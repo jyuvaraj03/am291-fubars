@@ -74,7 +74,7 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
           title: Text('Reports History'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
