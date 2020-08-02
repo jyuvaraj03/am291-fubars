@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 import json
+from django.contrib.staticfiles import finders
+import os
 
 # Create your views here.
 def index(req):
@@ -17,12 +19,13 @@ def index(req):
 		# 	'label':obj['title'],
 		# 	'email':'authority@fubars.com'
 		# }
-
 		return redirect('index')
 
 	else:
-		with open('./data/mis13.json','r') as f:
-			obj = json.load(f)
+		result = finders.find('analytics/mis13.json')
+		print(finders.searched_locations)
+		# with open(,'r') as f:
+		# 	obj = json.load(f)
 		
 	context = {
 		'title':'Schools Report Monitoring Dashboard',
@@ -32,7 +35,7 @@ def index(req):
 		'email':'authority@fubars.com'
 	}
 
-	return render(req,'analytics/Dashboard_index.html',context)
+	return render(req,'analytics/dashboard.html',context)
 # from django.shortcuts import render
 # import json
 
@@ -80,6 +83,7 @@ def complaints(req):
 	}
 
 	return render(req,'analytics/Dashboard_index.html',context)
+
 def attendance(req):
 	obj = {'data':[],'labels':[],'title':''}
 

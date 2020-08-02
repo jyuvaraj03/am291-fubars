@@ -19,8 +19,8 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name = "base"),
-    path('/complaints',views.complaints,name="complaints"),
-    path('/attendance',views.attendance,name="attendance"),
-    path('/allotment',views.allotment,name="allotment"),
-    path('/live',views.allotment,name = "live")
+    path('complaints',views.complaints,name="complaints"),
+    path('attendance',views.attendance,name="attendance"),
+    path('allotment',views.allotment,name="allotment"),
+    path('live',views.allotment,name = "live")
 ]
