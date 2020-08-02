@@ -28,7 +28,7 @@ class ReportCard extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
               Text('No. of students: '),
-              Text('Menu Served: '),
+              
           ],
           ),
       ),

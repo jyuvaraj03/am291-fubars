@@ -42,7 +42,19 @@ class _SchoolHomeState extends State<SchoolHome> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   //crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(isAttendance ? _attendanceController.text : " "),
+                    Text(
+                      isAttendance ? _attendanceController.text : "hi",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0, bottom: 15),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Enter Today's Attendance",
+                            style: TextStyle(color: Colors.white, fontSize: 23),
+                          )),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -75,7 +87,7 @@ class _SchoolHomeState extends State<SchoolHome> {
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          color: Colors.greenAccent,
+                          color: Colors.green[400],
                           padding: EdgeInsets.all(8),
                           onPressed: () {
                             Provider.of<PostSchoolCount>(context, listen: false)
@@ -86,24 +98,26 @@ class _SchoolHomeState extends State<SchoolHome> {
                               _attendanceController.clear();
                             });
                           },
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
+                          child: Text("Submit",
+                              style: TextStyle(
+                                color: Colors.white,
+                              )),
                         ),
                       ),
                     ),
                     Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: OutlineButton(
+                        child: RaisedButton(
                           splashColor: Color.fromRGBO(97, 227, 236, 1),
-                          textColor: Color.fromRGBO(97, 227, 236, 1),
-                          color: Colors.white,
+                          color:Color.fromRGBO(220, 220, 220, 1),
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, '/SchoolReportHistory');
                           },
-                          child: Text("Reports History"),
+                          child: Text(
+                            "Reports History",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         )),
                   ],
                 ),

@@ -56,7 +56,7 @@ class ChooseUserType extends StatelessWidget {
                               builder: (context) => UserSignUp("Reporter")));
                     },
                     child: Text(
-                      "Reporter",
+                      "School",
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,

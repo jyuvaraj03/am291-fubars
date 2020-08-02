@@ -29,7 +29,10 @@ class _ReportsItemState extends State<ReportsItem> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "Month",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
                     ),
                   ),
                   OutlineButton(
@@ -42,9 +45,13 @@ class _ReportsItemState extends State<ReportsItem> {
                 ],
               ),
             ),
-            ReportCard(),
-            ReportCard(),
-            ReportCard(),
+           
+                ReportCard(),
+                ReportCard(),
+                ReportCard(),
+                
+             
+
             // ReportCard(
             //     widget.reports.numberOfStudents, widget.reports.menuServed),
             // ReportCard(

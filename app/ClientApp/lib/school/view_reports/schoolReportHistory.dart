@@ -81,7 +81,10 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
                 ),
               ),
             ),
-            ReportsItem()
+            ReportsItem(),
+            ReportsItem(),
+         
+
             // Expanded(
             //     child: FutureBuilder<List<dynamic>>(
             //         future: _fetchData(),

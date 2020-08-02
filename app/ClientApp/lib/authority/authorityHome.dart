@@ -15,8 +15,9 @@ class _AuthorityHomeState extends State<AuthorityHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(34, 40, 49, 1),
       appBar: AppBar(title: Text("Home")),
-      body: Center(child: Text("No data")),
+      body: Center(child: Text("Welcome!")),
       drawer: Drawer(
           child: Column(
         children: <Widget>[
