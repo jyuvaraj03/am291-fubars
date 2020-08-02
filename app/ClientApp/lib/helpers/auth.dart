@@ -9,6 +9,7 @@ class Auth with ChangeNotifier {
   bool _isAuthority;
   //String _userId;
   SharedPreferences tokenPref;
+  SharedPreferences userTypePref;
   String tokenValue;
 
   bool get isAuthority {
@@ -97,7 +98,7 @@ class Auth with ChangeNotifier {
     final response = await http.post(url, body: data);
     if (response.statusCode == 200) {
       _token = jsonDecode(response.body)['auth_token'];
-      print('logged in');
+      print('actual logged in');
       const url1 = 'http://127.0.0.1:8000/api/users/me';
       final res = await http.get(
         url1,
@@ -108,8 +109,10 @@ class Auth with ChangeNotifier {
       );
      // print("actual log in" + jsonDecode(res.body));
       _isAuthority = jsonDecode(res.body)['is_authority'];
-      tokenPref = await SharedPreferences.getInstance();
+      final tokenPref = await SharedPreferences.getInstance();
       tokenPref.setString("key", _token.toString());
+      final userTypePref = await SharedPreferences.getInstance();
+      userTypePref.setBool("isauth", _isAuthority);
       print(_isAuthority);
       notifyListeners();
       //return _token;
