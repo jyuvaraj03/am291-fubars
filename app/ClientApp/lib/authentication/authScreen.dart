@@ -5,79 +5,36 @@ import 'package:provider/provider.dart';
 
 import '../helpers/auth.dart';
 
-
 enum AuthMode { Signup, Login }
 
 class AuthScreen extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-   
-    return Scaffold(
-
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(189, 189, 189, 1).withOpacity(0.5),
-                  Color.fromRGBO(50, 50, 50, 1).withOpacity(0.9),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-              ),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            height: deviceSize.height,
+            width: deviceSize.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  flex: deviceSize.width > 600 ? 2 : 1,
+                  child: AuthCard(),
+                ),
+              ],
             ),
           ),
-          SingleChildScrollView(
-            child: Container(
-              height: deviceSize.height,
-              width: deviceSize.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)
-                        ..translate(-10.0),
-                      // ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.black,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Text(
-                        'MDM',
-                        style: TextStyle(
-                          color: Theme.of(context).accentTextTheme.title.color,
-                          fontSize: 50,
-                          fontFamily: 'Anton',
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: deviceSize.width > 600 ? 2 : 1,
-                    child: AuthCard(),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -102,6 +59,8 @@ class _AuthCardState extends State<AuthCard> {
   };
   var _isLoading = false;
   final _passwordController = TextEditingController();
+  String titleText = "Welcome Back!";
+  bool showPass = false;
 
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
@@ -114,11 +73,12 @@ class _AuthCardState extends State<AuthCard> {
     });
     if (_authMode == AuthMode.Login) {
       // Log user in
-      await Provider.of<Auth>(context, listen: false).actualLogin(_authData['username'], _authData['password']);
-     
+      await Provider.of<Auth>(context, listen: false)
+          .actualLogin(_authData['username'], _authData['password']);
     } else {
       // Sign user up
-      await Provider.of<Auth>(context, listen: false).signup(_authData['username'], _authData['email'], _authData['password']);
+      await Provider.of<Auth>(context, listen: false).signup(
+          _authData['username'], _authData['email'], _authData['password']);
       print("Sign up button clicked");
       Navigator.pushReplacementNamed(context, "/ChooseUserType");
     }
@@ -128,13 +88,23 @@ class _AuthCardState extends State<AuthCard> {
   }
 
   void _switchAuthMode() {
+    setState(() {
+      _passwordController.clear();
+      showPass = false;
+      FocusScopeNode currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.unfocus();
+      }
+    });
     if (_authMode == AuthMode.Login) {
       setState(() {
         _authMode = AuthMode.Signup;
+        titleText = "Create Account!";
       });
     } else {
       setState(() {
         _authMode = AuthMode.Login;
+        titleText = "Welcome Back!";
       });
     }
   }
@@ -148,16 +118,24 @@ class _AuthCardState extends State<AuthCard> {
       ),
       elevation: 8.0,
       child: Container(
-        height: _authMode == AuthMode.Signup ? 560 : 330,
+        height: _authMode == AuthMode.Signup ? 450 : 330,
         constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
-        width: deviceSize.width * 0.85,
-        padding: EdgeInsets.only(top:8.0,left: 15,right:15),
+            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 260 : 240),
+        width: deviceSize.width * 0.90,
+        padding: EdgeInsets.only(top: 8.0, left: 15, right: 15),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    titleText,
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'User Name'),
                   keyboardType: TextInputType.text,
@@ -184,8 +162,19 @@ class _AuthCardState extends State<AuthCard> {
                     },
                   ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
-                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                          !showPass ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          showPass = !showPass;
+                        });
+                      },
+                    ),
+                  ),
+                  obscureText: !showPass ? true : false,
                   controller: _passwordController,
                   validator: (value) {
                     if (value.isEmpty || value.length < 5) {
@@ -199,8 +188,20 @@ class _AuthCardState extends State<AuthCard> {
                 if (_authMode == AuthMode.Signup)
                   TextFormField(
                     enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
-                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(!showPass
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            showPass = !showPass;
+                          });
+                        },
+                      ),
+                    ),
+                    obscureText: !showPass ? true : false,
                     validator: _authMode == AuthMode.Signup
                         ? (value) {
                             if (value != _passwordController.text) {

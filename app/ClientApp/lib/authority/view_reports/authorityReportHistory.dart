@@ -124,7 +124,7 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
                           padding: EdgeInsets.only(top: 10.0),
                           child: CircularProgressIndicator(
                             strokeWidth: 6.0,
-                            //any color you want
+                            
                           ),
                         );
                       return ReportsItem(snapshot.data);
