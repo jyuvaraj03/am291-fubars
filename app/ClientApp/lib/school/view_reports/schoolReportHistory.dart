@@ -119,7 +119,7 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
                             //any color you want
                           ),
                         );
-                      return ReportsItem(snapshot.data);
+                      return ReportsItem(snapshot.data, _currentItemSelected);
                     })),
           ],
         ));

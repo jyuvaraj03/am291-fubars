@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'reportCard.dart';
 
 class ReportsItem extends StatefulWidget {
-
   List<dynamic> reports = new List<dynamic>();
+  final String month;
+  ReportsItem(this.reports, this.month);
 
-  ReportsItem(this.reports);
-  
   @override
   _ReportsItemState createState() => _ReportsItemState();
 }
 
 class _ReportsItemState extends State<ReportsItem> {
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,40 +26,42 @@ class _ReportsItemState extends State<ReportsItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Month",
+                      widget.month,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
                   ),
-                  OutlineButton(
-                    splashColor: Color.fromRGBO(97, 227, 236, 1),
-                    textColor: Color.fromRGBO(97, 227, 236, 1),
-                    color: Colors.white,
-                    onPressed: () {},
-                    child: Text("Show More"),
-                  )
+                  // OutlineButton(
+                  //   splashColor: Color.fromRGBO(97, 227, 236, 1),
+                  //   textColor: Color.fromRGBO(97, 227, 236, 1),
+                  //   color: Colors.white,
+                  //   onPressed: () {},
+                  //   child: Text("Show More"),
+                  //)
                 ],
               ),
             ),
             Column(
               children: <Widget>[
                 ListView.builder(
-              itemBuilder: (BuildContext ctxt, int index) {
-                  //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
-                  return new ReportCard(widget.reports[index]["actual_student_count"]);
-                },
-              itemCount: widget.reports.length,
-              shrinkWrap: true,
-            )
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
+                    return new ReportCard(
+                        widget.reports[index]["student_count"],
+                        widget.reports[index]["for_date"]);
+                  },
+                  itemCount: widget.reports.length,
+                  shrinkWrap: true,
+                )
               ],
             )
           ],

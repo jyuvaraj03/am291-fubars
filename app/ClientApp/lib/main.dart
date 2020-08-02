@@ -30,12 +30,17 @@ class _MyAppState extends State<MyApp> {
   bool isLoggedIn = false;
   SharedPreferences tokenPref;
   String tokenValue;
-
+  bool splash = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    //getToken();
+  }
+
+  void _changeSplash() {
+    setState(() {
+      splash = false;
+    });
   }
 
   @override
