@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './reportItem.dart';
 
@@ -14,29 +15,35 @@ class AuthorityReportHistory extends StatefulWidget {
 }
 
 class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
-
+  SharedPreferences tokenPref;
 
   Auth auth = new Auth();
- List<dynamic> responseData = [];
+  List<dynamic> responseData = [];
   Future<List<dynamic>> _fetchData() async {
-     var authToken = Provider.of<AuthHelper>(context, listen: false).returnToken();
-    const url = 'https://floating-badlands-95462.herokuapp.com/api/authorities/me/reports/';
+    final tokenPref = await SharedPreferences.getInstance();
+    var authTokenn = tokenPref.getString("key");
+    var authToken =
+        Provider.of<AuthHelper>(context, listen: false).returnToken();
+    const url =
+        'https://floating-badlands-95462.herokuapp.com/api/authorities/me/reports/';
     final response = await http.get(
       url,
-      headers: {"Authorization": "Token $authToken",
-        "Content-Type": "application/json"},      
+      headers: {
+        "Authorization": "Token $authTokenn",
+        "Content-Type": "application/json"
+      },
     );
     responseData = jsonDecode(response.body);
-    print(responseData.length);
-    for(int i=0; i<responseData.length; i++){
-      print(responseData[i]["actual_items"].map((item)=>item['item']).toList().toString());
+    print(responseData);
+    for (int i = 0; i < responseData.length; i++) {
+      print(responseData[i]["actual_items"]
+          .map((item) => item['item'])
+          .toList()
+          .toString());
     }
     responseData = new List<dynamic>.from(responseData);
     return responseData;
-
   }
-
-
 
   var _month = [
     'January',

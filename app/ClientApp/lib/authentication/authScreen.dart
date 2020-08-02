@@ -15,6 +15,7 @@ class AuthScreen extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
    
     return Scaffold(
+
       body: Stack(
         children: <Widget>[
           Container(
