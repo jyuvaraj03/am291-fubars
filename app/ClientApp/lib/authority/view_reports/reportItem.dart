@@ -87,7 +87,7 @@ class _ReportsItemState extends State<ReportsItem> {
                     //return new ReportCard(widget.reports[index]["school"]["name"],true, widget.reports[index]["for_date"],widget.reports[index]["student_count"],widget.reports[index]["estimate_student_count"],items[index],est_items[index]);
                     return new ReportCard(
                         widget.reports[index]["school"]["name"],
-                        true,
+                        widget.reports[index]['is_discrepant'],
                         widget.reports[index]["for_date"],
                         widget.reports[index]["actual"]["student_count"],
                         widget.reports[index]["estimate"]["student_count"],
