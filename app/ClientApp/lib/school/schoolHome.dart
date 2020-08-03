@@ -68,7 +68,7 @@ class _SchoolHomeState extends State<SchoolHome> {
       child: Scaffold(
         drawer: _buildDrawer(),
         appBar: AppBar(
-          title: Text("Home"),
+          title: Text("School Home"),
         ),
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
@@ -231,13 +231,34 @@ class _SchoolHomeState extends State<SchoolHome> {
   }
 
   Widget _buildDrawer() {
-   
     return Drawer(
         child: Column(
       children: <Widget>[
         AppBar(
-          title: Text("School"),
+          title: Text("Home"),
           automaticallyImplyLeading: false,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 100,
+                width: 100,
+                child: Image(image: AssetImage("assets/images/logo.png")),
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "SCHOOL",
+                    style: TextStyle(
+                        color: Color.fromRGBO(50, 134, 103, 1),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ],
+          ),
         ),
         ListTile(
           // leading: Icon(Icons.view_day),

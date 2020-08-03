@@ -82,6 +82,14 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Reports History'),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.report_problem,
+                  color: Colors.white,
+                ),
+                onPressed: () {})
+          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

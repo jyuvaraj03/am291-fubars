@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
                               builder: (BuildContext context,
                                   AsyncSnapshot<bool> snapshot) {
                                 if (snapshot.data == true)
-                                  return AuthorityHome(_showNotification);
+                                  return AuthorityHome();
                                 else
                                   return SchoolHome();
                               });
@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
                           SchoolReportHistory(),
                       '/SchoolHomePage': (BuildContext context) => SchoolHome(),
                       '/AuthorityHomePage': (BuildContext context) =>
-                          AuthorityHome(_showNotification),
+                          AuthorityHome(),
                       '/AuthorityReportHistory': (BuildContext context) =>
                           AuthorityReportHistory()
                     })));
