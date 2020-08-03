@@ -60,10 +60,10 @@ class _SchoolHomeState extends State<SchoolHome> {
     _getDate();
     return GestureDetector(
       onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
+        // FocusScopeNode currentFocus = FocusScope.of(context);
+        // if (!currentFocus.hasPrimaryFocus) {
+        //   currentFocus.unfocus();
+        // }
       },
       child: Scaffold(
         drawer: _buildDrawer(),
@@ -166,7 +166,7 @@ class _SchoolHomeState extends State<SchoolHome> {
       setState(() {
         _attendanceController.clear();
       });
-      
+
       return;
     }
   }
@@ -211,7 +211,7 @@ class _SchoolHomeState extends State<SchoolHome> {
         initialDate: DateTime.now(),
         firstDate: DateTime.now().subtract(Duration(days: _year * 10)),
         lastDate: DateTime.now().add(Duration(days: _year * 10)));
-    DateFormat dateFormat = DateFormat('yyyy/MM/dd');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
     if (picked != null) {
       setState(() {
         if (weekDays.contains(DateFormat('E').format(picked))) {
@@ -231,6 +231,7 @@ class _SchoolHomeState extends State<SchoolHome> {
   }
 
   Widget _buildDrawer() {
+   
     return Drawer(
         child: Column(
       children: <Widget>[

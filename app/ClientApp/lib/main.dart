@@ -16,6 +16,10 @@ import 'helpers/authorityEnroll.dart';
 import 'helpers/schoolEnroll.dart';
 import 'helpers/authHelper.dart';
 import 'school/schoolHome.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 void main() {
   runApp(Phoenix(child: MyApp()));
@@ -35,6 +39,21 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings("app_icon");
+
+    var initializationSettingsIOS = new IOSInitializationSettings();
+
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+  }
+
+  Future selectNotification(String payload) async {
+    print("your payload " + payload);
   }
 
   void _changeSplash() {
@@ -43,9 +62,27 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future _showNotification() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'your channel id', 'your channel name', 'your channel description',
+        importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics =
+        new IOSNotificationDetails(sound: "slow_spring_board.aiff");
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'New Post',
+      'How to Show Notification in Flutter',
+      platformChannelSpecifics,
+      payload: 'Custom_Sound',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // getToken();
+    //_showNotification();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider.value(
@@ -90,7 +127,7 @@ class _MyAppState extends State<MyApp> {
                               builder: (BuildContext context,
                                   AsyncSnapshot<bool> snapshot) {
                                 if (snapshot.data == true)
-                                  return AuthorityHome();
+                                  return AuthorityHome(_showNotification);
                                 else
                                   return SchoolHome();
                               });
@@ -107,7 +144,7 @@ class _MyAppState extends State<MyApp> {
                           SchoolReportHistory(),
                       '/SchoolHomePage': (BuildContext context) => SchoolHome(),
                       '/AuthorityHomePage': (BuildContext context) =>
-                          AuthorityHome(),
+                          AuthorityHome(_showNotification),
                       '/AuthorityReportHistory': (BuildContext context) =>
                           AuthorityReportHistory()
                     })));

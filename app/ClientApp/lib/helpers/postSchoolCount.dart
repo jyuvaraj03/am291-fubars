@@ -16,7 +16,7 @@ class PostSchoolCount with ChangeNotifier{
     print(studentCount.runtimeType);
     Map data = {
       'student_count': studentCount,
-      'for_date': '2020-08-04'
+      'for_date': todayDate
     };
     // responsedata.map((json) => json['item']).toList() 
     final response = await http.post(

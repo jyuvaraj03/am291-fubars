@@ -13,12 +13,12 @@ class PointsLineChart extends StatelessWidget {
         animate: animate,
         behaviors: [new charts.ChartTitle('Student Count',
               behaviorPosition: charts.BehaviorPosition.bottom,
-              titleStyleSpec: charts.TextStyleSpec(fontSize: 11),
+              titleStyleSpec: charts.TextStyleSpec(fontSize: 15,),
               titleOutsideJustification:
               charts.OutsideJustification.middleDrawArea),
               new charts.ChartTitle('Days',
               behaviorPosition: charts.BehaviorPosition.start,
-              titleStyleSpec: charts.TextStyleSpec(fontSize: 11),
+              titleStyleSpec: charts.TextStyleSpec(fontSize: 15),
               titleOutsideJustification:
               charts.OutsideJustification.middleDrawArea),],
         defaultRenderer: new charts.LineRendererConfig(includePoints: true));
