@@ -30,7 +30,9 @@ class _ReportsItemState extends State<ReportsItem> {
       estimatedItems = widget.reports[i]["estimate"]["items"]
           .map((item) => item['item'])
           .toList();
-      est_items.add(actualItems.toString());
+      print(estimatedItems);
+      est_items.add(estimatedItems.toString());
+      print(est_items);
     }
     print(items);
   }
@@ -42,12 +44,10 @@ class _ReportsItemState extends State<ReportsItem> {
         //open the Month reports page with all days of a selected month
       },
       child: Container(
-        
         decoration: BoxDecoration(
-          
           border: Border.all(color: Colors.black),
         ),
-       // color: Color.fromRGBO(92, 92, 92, 1),
+        // color: Color.fromRGBO(92, 92, 92, 1),
         margin: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -65,7 +65,7 @@ class _ReportsItemState extends State<ReportsItem> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        color: Color.fromRGBO(50, 134, 103, 1),
                       ),
                     ),
                   ),

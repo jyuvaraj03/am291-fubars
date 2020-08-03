@@ -69,7 +69,7 @@ class _SchoolReportHistoryState extends State<SchoolReportHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(34, 40, 49, 1),
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Reports History'),
         ),

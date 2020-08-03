@@ -16,6 +16,7 @@ class ReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     var onlyDate = DateFormat('d').format(DateTime.parse(date));
     var onlyDay = DateFormat('E').format(DateTime.parse(date));
     return Container(
