@@ -6,7 +6,7 @@ class ChooseUserType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(34, 40, 49, 1),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -15,7 +15,7 @@ class ChooseUserType extends StatelessWidget {
                 padding: const EdgeInsets.all(25.0),
                 child: Text(
                   "Continue As",
-                  style: TextStyle(color: Colors.white, fontSize: 30),
+                  style: TextStyle(color: Colors.black, fontSize: 30),
                 )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,7 @@ class ChooseUserType extends StatelessWidget {
                 RaisedButton(
                     padding: EdgeInsets.only(
                         left: 25, right: 25, top: 10, bottom: 10),
-                    color: Color.fromRGBO(75, 200, 210, 1),
+                    color: Color.fromRGBO(67, 182, 138, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     onPressed: () {
@@ -45,7 +45,7 @@ class ChooseUserType extends StatelessWidget {
                 RaisedButton(
                     padding: EdgeInsets.only(
                         left: 25, right: 25, top: 10, bottom: 10),
-                    color: Color.fromRGBO(75, 200, 210, 1),
+                    color: Color.fromRGBO(67, 182, 138, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     onPressed: () {

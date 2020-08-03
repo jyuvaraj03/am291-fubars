@@ -218,14 +218,14 @@ class _AuthCardState extends State<AuthCard> {
                 else
                   RaisedButton(
                     child:
-                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP', style: TextStyle(fontSize: 18),),
                     onPressed: _submit,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                     padding:
                         EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                    color: Colors.black,
+                    color: Color.fromRGBO(67, 182, 138, 1),
                     textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
                 FlatButton(

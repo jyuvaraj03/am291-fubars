@@ -19,7 +19,7 @@ class _ReportsItemState extends State<ReportsItem> {
       onTap: () {
         //open the Month reports page with all days of a selected month
       },
-      child: Card(
+      child: Container(
         color: Color.fromRGBO(93, 99, 108, 1),
         margin: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
         child: Column(
@@ -50,19 +50,17 @@ class _ReportsItemState extends State<ReportsItem> {
                 ],
               ),
             ),
-            Column(
-              children: <Widget>[
-                ListView.builder(
-                  itemBuilder: (BuildContext ctxt, int index) {
-                    //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
-                    return new ReportCard(
-                        widget.reports[index]["student_count"],
-                        widget.reports[index]["for_date"]);
-                  },
-                  itemCount: widget.reports.length,
-                  shrinkWrap: true,
-                )
-              ],
+            Container(
+              child: ListView.builder(
+                itemBuilder: (BuildContext ctxt, int index) {
+                  //return new ReportCard(widget.reports[index]["student_count"],items[index],widget.reports[index]["estimate_student_count"],est_items[index]);
+                  return new ReportCard(
+                      widget.reports[index]["student_count"],
+                      widget.reports[index]["for_date"]);
+                },
+                itemCount: widget.reports.length,
+                shrinkWrap: true,
+              ),
             )
           ],
         ),

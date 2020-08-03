@@ -79,7 +79,7 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(34, 40, 49, 1),
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Reports History'),
         ),
@@ -103,10 +103,11 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
                   items: _month.map((String dropDownStringItem) {
                     return DropdownMenuItem<String>(
                       value: dropDownStringItem,
-                      child: Text(
-                        dropDownStringItem,
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
+                      child: Text(dropDownStringItem,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          )),
                     );
                   }).toList(),
                   onChanged: (String newValueSelected) {
@@ -126,10 +127,11 @@ class _AuthorityReportHistoryState extends State<AuthorityReportHistory> {
                           padding: EdgeInsets.only(top: 10.0),
                           child: CircularProgressIndicator(
                             strokeWidth: 6.0,
-                            
                           ),
                         );
-                      return ReportsItem(snapshot.data);
+                      return Container(
+                          child:
+                              ReportsItem(snapshot.data, _currentItemSelected));
                     })),
           ],
         ));

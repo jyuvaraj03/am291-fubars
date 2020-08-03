@@ -5,6 +5,7 @@ import 'package:ClientApp/helpers/postSchoolCount.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+
 class SchoolHome extends StatefulWidget {
   @override
   _SchoolHomeState createState() => _SchoolHomeState();
@@ -37,7 +38,7 @@ class _SchoolHomeState extends State<SchoolHome> {
         Fluttertoast.showToast(
             msg: "Today is not a Week Day",
             toastLength: Toast.LENGTH_SHORT,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.red[200],
             textColor: Colors.black,
             fontSize: 14.0);
       }
@@ -70,7 +71,7 @@ class _SchoolHomeState extends State<SchoolHome> {
           title: Text("Home"),
         ),
         resizeToAvoidBottomPadding: false,
-        backgroundColor: Color.fromRGBO(34, 40, 49, 1),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -89,7 +90,7 @@ class _SchoolHomeState extends State<SchoolHome> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Enter Attendance",
-                          style: TextStyle(color: Colors.white, fontSize: 23),
+                          style: TextStyle(color: Colors.black, fontSize: 23),
                         )),
                   ),
                   Padding(
@@ -121,17 +122,19 @@ class _SchoolHomeState extends State<SchoolHome> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: RaisedButton(
+                        padding: EdgeInsets.only(
+                            left: 25, right: 25, top: 12, bottom: 12),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        color: Colors.green[400],
-                        padding: EdgeInsets.all(8),
+                        color: Color.fromRGBO(67, 182, 138, 1),
                         onPressed: () {
                           _submitData();
                         },
                         child: Text("Submit",
                             style: TextStyle(
+                              fontSize: 16,
                               color: Colors.white,
                             )),
                       ),
@@ -151,7 +154,7 @@ class _SchoolHomeState extends State<SchoolHome> {
       Fluttertoast.showToast(
           msg: "Please Enter Valid Data",
           toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red[200],
           textColor: Colors.black,
           fontSize: 16.0);
 
@@ -163,6 +166,7 @@ class _SchoolHomeState extends State<SchoolHome> {
       setState(() {
         _attendanceController.clear();
       });
+      
       return;
     }
   }
@@ -182,15 +186,17 @@ class _SchoolHomeState extends State<SchoolHome> {
                 SizedBox(
                   width: 5,
                 ),
-                Icon(Icons.date_range)
+                Icon(
+                  Icons.date_range,
+                  color: Color.fromRGBO(50, 134, 103, 1),
+                )
               ],
             ),
           ),
           Text(
             dateSelected ? DateFormat("yMMMMd").format(pickedDate) : " ",
             style: TextStyle(
-              color: Colors.white,
-            ),
+                color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600),
           )
         ],
       ),
@@ -216,7 +222,7 @@ class _SchoolHomeState extends State<SchoolHome> {
           Fluttertoast.showToast(
               msg: "Selected Day is not a Week Day",
               toastLength: Toast.LENGTH_SHORT,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.red[200],
               textColor: Colors.black,
               fontSize: 14.0);
         }
@@ -229,22 +235,41 @@ class _SchoolHomeState extends State<SchoolHome> {
         child: Column(
       children: <Widget>[
         AppBar(
-          title: Text("SIH"),
+          title: Text("School"),
           automaticallyImplyLeading: false,
         ),
         ListTile(
-          title: Text("Reports"),
+          // leading: Icon(Icons.view_day),
+          trailing: Icon(
+            Icons.view_day,
+            color: Color.fromRGBO(50, 134, 103, 1),
+          ),
+          title: Text(
+            "Reports",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          ),
           onTap: () {
             Navigator.pushNamed(context, '/SchoolReportHistory');
           },
         ),
         ListTile(
-          title: Text("Settings"),
+          trailing: Icon(
+            Icons.help,
+            color: Color.fromRGBO(50, 134, 103, 1),
+          ),
+          title: Text("Help",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
           onTap: () {},
         ),
-        ListTile(title: Text("Help"), onTap: () {}),
         ListTile(
-            title: Text("Logout"),
+            trailing: Icon(
+              Icons.logout,
+              color: Color.fromRGBO(50, 134, 103, 1),
+            ),
+            title: Text(
+              "Logout",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            ),
             onTap: () {
               _clearPrefs();
               Phoenix.rebirth(context);

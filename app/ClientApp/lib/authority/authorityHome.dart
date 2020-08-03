@@ -30,7 +30,7 @@ class _AuthorityHomeState extends State<AuthorityHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(34, 40, 49, 1),
+      backgroundColor: Colors.white,
       appBar: AppBar(title: Text("Home")),
       body: Center(
           child: Text(
@@ -40,22 +40,38 @@ class _AuthorityHomeState extends State<AuthorityHome> {
           child: Column(
         children: <Widget>[
           AppBar(
-            title: Text("SIH"),
+            title: Text("Authority"),
             automaticallyImplyLeading: false,
           ),
           ListTile(
-            title: Text("Reports"),
+            trailing: Icon(
+              Icons.view_day,
+              color: Color.fromRGBO(50, 134, 103, 1),
+            ),
+            title: Text(
+              "Reports",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            ),
             onTap: () {
               Navigator.pushNamed(context, '/AuthorityReportHistory');
             },
           ),
           ListTile(
-            title: Text("Settings"),
+            trailing: Icon(
+              Icons.help,
+              color: Color.fromRGBO(50, 134, 103, 1),
+            ),
+            title: Text("Help",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
             onTap: () {},
           ),
-          ListTile(title: Text("Help"), onTap: () {}),
           ListTile(
-              title: Text("Logout"),
+              trailing: Icon(
+                Icons.logout,
+                color: Color.fromRGBO(50, 134, 103, 1),
+              ),
+              title: Text("Logout",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
               onTap: () {
                 _clearPrefs();
                 Phoenix.rebirth(context);

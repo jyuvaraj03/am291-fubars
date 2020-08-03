@@ -60,7 +60,7 @@ class _UserSignUpState extends State<UserSignUp> {
         }
       },
       child: Scaffold(
-          backgroundColor: Color.fromRGBO(34, 40, 49, 1),
+          backgroundColor: Colors.white,
           resizeToAvoidBottomPadding: false,
           body: Center(
             child: SingleChildScrollView(
@@ -70,7 +70,7 @@ class _UserSignUpState extends State<UserSignUp> {
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
                     "One more step!",
-                    style: TextStyle(color: Colors.white, fontSize: 30),
+                    style: TextStyle(color: Colors.black, fontSize: 30),
                   ),
                 ),
                 Padding(
@@ -141,7 +141,7 @@ class AuthoritySignUp extends StatelessWidget {
         ),
         RaisedButton(
           padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
-          color: Color.fromRGBO(75, 200, 210, 1),
+          color: Color.fromRGBO(67, 182, 138, 1),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           onPressed: () {
@@ -203,8 +203,9 @@ class ReporterSignUp extends StatelessWidget {
           ),
         ),
         RaisedButton(
+          elevation: 10,
           padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
-          color: Color.fromRGBO(75, 200, 210, 1),
+          color: Color.fromRGBO(67, 182, 138, 1),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           onPressed: () {
