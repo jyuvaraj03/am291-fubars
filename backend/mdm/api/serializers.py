@@ -83,7 +83,7 @@ class SchoolReportCreateSerializer(serializers.ModelSerializer):
 
 
 class EstimateReportSerializer(serializers.ModelSerializer):
-    items = ReportItemSerializer(many=True)
+    items = ReportItemSerializer(many=True, required=False, allow_null=False)
 
     class Meta:
         model = Report

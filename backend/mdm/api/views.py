@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.http import Http404
 from .permissions import IsOwnerOrReadOnly, IsSchoolOwner, IsOwner
 from .serializers import SchoolReportSerializer, SchoolReportCreateSerializer, AuthoritySerializer, SchoolSerializer, DistrictSerializer, AuthorityReportSerializer, EstimateReportSerializer
-from .models import Report, School, Authority, District
+from .models import Report, School, Authority, District, AuthorityReport
 
 
 class MeRetrieveUpdate(generics.RetrieveUpdateAPIView):
@@ -50,48 +50,10 @@ class AuthorityMeRetrieveUpdate(MeRetrieveUpdate):
     permission_classes = [IsAuthenticated, IsOwner]
 
 
-class AuthorityReportList(APIView):
-    """
-    Lists all the reports created by schools under the
-    currently logged in authority.
-    """
-
+class AuthorityReportList(generics.ListAPIView):
+    queryset = AuthorityReport.objects.all()
+    serializer_class = AuthorityReportSerializer
     permission_classes = [IsAuthenticated]
-
-    def get(self, request, format=None):
-        """
-        Return the list of reports under authority.
-        """
-        authority = Authority.objects.get(user=request.user)
-        schools = authority.school_set.all()
-        reports = Report.objects.filter(school__in=schools)
-
-        response_data = []
-
-        for school in schools:
-
-            actual_reports = reports.filter(
-                added_by_school=True, school=school)
-            for actual_report in actual_reports:
-                try:
-                    estimate_report = actual_report.estimate_report
-
-                    serializer = AuthorityReportSerializer(
-                        actual_report=actual_report, estimate_report=estimate_report)
-                    response_data.append(serializer.data)
-
-                except Report.DoesNotExist:
-                    serializer = AuthorityReportSerializer(
-                        actual_report=actual_report)
-                    response_data.append(serializer.data)
-
-                except ValidationError as ve:
-                    print(ve)
-
-                except Exception as e:
-                    print(e)
-
-        return Response(response_data)
 
 
 class SchoolEnroll(generics.CreateAPIView):
@@ -150,16 +112,6 @@ class SchoolReportRetrieve(generics.RetrieveAPIView):
     """
     queryset = Report.objects.filter(added_by_school=True)
     serializer_class = SchoolReportSerializer
-    permission_classes = [IsAuthenticated, IsSchoolOwner]
-
-
-class SchoolReportUpdate(generics.UpdateAPIView):
-    """
-    Update reports created by currently
-    logged in school.
-    """
-    queryset = Report.objects.filter(added_by_school=True)
-    serializer_class = SchoolReportCreateSerializer
     permission_classes = [IsAuthenticated, IsSchoolOwner]
 
 
