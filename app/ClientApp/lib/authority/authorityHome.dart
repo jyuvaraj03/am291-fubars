@@ -9,6 +9,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'barChart.dart';
 
 class AuthorityHome extends StatefulWidget {
   //final Function showNotification;
@@ -19,7 +20,7 @@ class AuthorityHome extends StatefulWidget {
 }
 
 List<charts.Series<LinearData, int>> _createSampleData(
-    List<dynamic> responseData) {
+  List<dynamic> responseData) {
   List<int> actualCount = List<int>();
   List<int> estimateCount = List<int>();
 
@@ -30,6 +31,8 @@ List<charts.Series<LinearData, int>> _createSampleData(
 
   print(actualCount);
   print(estimateCount);
+
+// filter one single school
 
   final List<LinearData> data = [];
   for (int i = 0; i < actualCount.length; i++) {
@@ -65,6 +68,50 @@ class LinearData {
 
   LinearData(this.xaxis, this.yaxis);
 }
+
+ List<charts.Series<OrdinalSales, String>> _createBarSample(
+   List<dynamic> responseData
+   ) {
+     List<int> studentCount = List<int>();
+    List<String> school = List<String>();
+
+    for (int i = 0; i < responseData.length; i++) {
+    studentCount.add(responseData[i]["actual"]["student_count"]);
+    school.add(responseData[i]["school"]["name"]);
+  }
+
+  final List<OrdinalSales> data = [];
+  for (int i = 0; i < studentCount.length; i++) {
+    data.add(new OrdinalSales(studentCount[i], school[i]));
+  }
+
+    // final data = [
+    //   new OrdinalSales(5, 'SBOA'),
+    //   // new OrdinalSales(3, 'Chinmaya'),
+    //   // new OrdinalSales(0, 'MVM'),
+    //   // new OrdinalSales(1, 'VSSS'),
+    // ];
+
+    return [
+      new charts.Series<OrdinalSales, String>(
+        id: 'Sales',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (OrdinalSales sales, _) => sales.sales,
+        measureFn: (OrdinalSales sales, _) => sales.year,
+        data: data,
+      )
+    ];
+  }
+
+
+/// Sample ordinal data type.
+class OrdinalSales {
+  final int year;
+  final String sales;
+
+  OrdinalSales(this.year, this.sales);
+}
+
 
 class _AuthorityHomeState extends State<AuthorityHome> {
   SharedPreferences tokenPref;
@@ -105,6 +152,8 @@ class _AuthorityHomeState extends State<AuthorityHome> {
     responseData = new List<dynamic>.from(responseData);
     return responseData;
   }
+
+  
 
   Future displayNotifications(String schoolName, String date) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
@@ -179,7 +228,7 @@ class _AuthorityHomeState extends State<AuthorityHome> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.width / 2,
+              height: 300,
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: DecoratedBox(
@@ -205,6 +254,40 @@ class _AuthorityHomeState extends State<AuthorityHome> {
                             return PointsLineChart(
                                 _createSampleData(snapshot.data));
                           })
+                      //(child: PointsLineChart(_createSampleData(actualCount)))),
+                      ),
+                ),
+              ),
+            ),
+            Container(
+              height: 300,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(width: 1.5, color: Colors.black),
+                  ),
+                  child: Card(
+                      color: Color.fromRGBO(222, 222, 222, 1),
+                      elevation: 10,
+                      //child:
+                      child: FutureBuilder<List<dynamic>>(
+                          future: _fetchData(),
+                          builder: (context, snapshot) {
+                            //print(snapshot.toString());
+                            if (!snapshot.hasData)
+                              return Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 6.0,
+                                ),
+                              );
+                            return 
+                            SimpleBarChart(_createBarSample(snapshot.data));
+                          }
+                          )
                       //(child: PointsLineChart(_createSampleData(actualCount)))),
                       ),
                 ),
@@ -253,6 +336,19 @@ class _AuthorityHomeState extends State<AuthorityHome> {
             ),
             onTap: () {
               Navigator.pushNamed(context, '/AuthorityReportHistory');
+            },
+          ),
+          ListTile(
+            trailing: Icon(
+              Icons.view_day,
+              color: Color.fromRGBO(50, 134, 103, 1),
+            ),
+            title: Text(
+              "View Discrepancy Reports",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, '/DiscrepancyReportHistory');
             },
           ),
           ListTile(

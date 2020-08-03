@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'authority/authorityHome.dart';
+import 'authority/view_discrepancy/disReportHistory.dart';
 import 'authority/view_reports/authorityReportHistory.dart';
 import 'helpers/postSchoolCount.dart';
 import 'authentication/authScreen.dart';
@@ -146,7 +147,9 @@ class _MyAppState extends State<MyApp> {
                       '/AuthorityHomePage': (BuildContext context) =>
                           AuthorityHome(),
                       '/AuthorityReportHistory': (BuildContext context) =>
-                          AuthorityReportHistory()
+                          AuthorityReportHistory(),
+                          '/DiscrepancyReportHistory': (BuildContext context) =>
+                          DisReportHistroy()
                     })));
   }
 }

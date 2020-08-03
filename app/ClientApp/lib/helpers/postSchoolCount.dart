@@ -29,6 +29,9 @@ class PostSchoolCount with ChangeNotifier{
     );
     print(response.statusCode);
     print(response.body);
+    if(response.statusCode == 500){
+      print(" already posted");
+    }
   }
 
 }
