@@ -1,0 +1,62 @@
+{% extends "analytics/Dashboard_index.html" %}
+{% load static %}
+
+<!-- Main Chart Goes -->
+{% block content %}
+		<div style="margin-left:30%;margin-top:5%">
+			<h4>Average attendance in Schools in Vishakapatnam</h4>
+			<div class="chart-container">
+				<canvas id="chart"></canvas>
+			</div>
+		</div>
+	</body>
+	<script>
+		const log = ()=>{console.log("hi")};
+		var labels = ["DALIGUMMADI", "GES HUKUMPETA", "GES NEELAMPUTTU", "GES SUKURU"]
+
+		let data_feb = JSON.parse("{{data_feb}}")
+		let data_jan = JSON.parse("{{data_jan}}")
+
+		var ctx = document.getElementById('chart').getContext('2d');
+		
+		console.log(labels,data);
+		var data = {
+		    labels: labels,
+		    datasets: [
+		    	{
+		            label: "Average Attendance in Jan 2020",
+		            data: data_jan,
+		            backgroundColor: "blue",
+		            borderColor: 'rgba(255, 90, 70, 0.8)',
+		            borderWidth: 1
+		        },
+		        {
+		            label: "Average Attendance in Feb 2020",
+		            data: data_feb,
+		            backgroundColor:'rgba(225,110,90,0.5)',
+		            borderColor: 'rgba(255, 90, 70, 0.8)',
+		            borderWidth: 1
+		        }
+		    ]
+		};
+
+		var myBarChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: data,
+		    options: {
+		    	responsive:false,
+		        barValueSpacing: 20,
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    min: 0,
+		                }
+		            }]
+		        }
+		    }
+		});
+
+		const onclick=()=>{console.log("hi");}
+
+	</script>
+{% endblock %}

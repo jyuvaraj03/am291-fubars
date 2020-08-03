@@ -25,17 +25,19 @@
 				<Button class="go" onclick="log()">Go</Button>
 			</form>
 			
-			<div class="chart-container">
+			<div class="chart-container" style="margin:0 auto">
 				<canvas id="chart"></canvas>
 			</div>
 		</div>
 	</body>
 	<script>
 		const log = ()=>{console.log("hi")};
-		var labels = "{{labels}}".replace(/&#x27;/g,'"').replace(/&amp; /g,'&')
-		labels = JSON.parse(labels)
+		var labels = ['Andhra Pradesh', 'Arunachal Pradesh', 'A& N Islands', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Delhi', 'Gujarat', 'Goa', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Odisha', 'Punjab', 'Rajasthan', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttarakhand', 'Uttar Pradesh', 'West Bengal']
+
 		let data = JSON.parse("{{data}}")
 		var ctx = document.getElementById('chart').getContext('2d');
+		
+		console.log(labels,data);
 		var myChart = new Chart(ctx, {
 		    type: 'bar',
 		    data: {
@@ -57,14 +59,3 @@
 
 	</script>
 {% endblock %}
-<!-- <!DOCTYPE html>
-<html>
-	<head>
-		<title>{{ title }}</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'analytics/dashboard.css' %}"></link>
-	</head>
-	<body>
-</html> -->

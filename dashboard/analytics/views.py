@@ -23,98 +23,63 @@ def index(req):
 
 	else:
 		result = finders.find('analytics/mis13.json')
-		print(finders.searched_locations)
-		# with open(,'r') as f:
-		# 	obj = json.load(f)
+		# print(finders.searched_locations)
+		with open(result,'r') as f:
+			obj = json.load(f)
+
+		data = [(o or 0) for o in obj['data']]
+		labels = [ str(label) for label in obj['labels'] ]
 		
 	context = {
 		'title':'Schools Report Monitoring Dashboard',
-		'data':obj['data'],
-		'labels':obj['labels'],
+		'data':data,
+		'labels':labels,
 		'label':obj['title'],
 		'email':'authority@fubars.com'
 	}
 
 	return render(req,'analytics/dashboard.html',context)
-# from django.shortcuts import render
-# import json
-
-# # Create your views here.
-# def index(req):
-# 	with open('../data/mis13.json','r') as f:
-# 		obj = json.load(f)
-
-# 	context = {
-# 		'title':'Dashboard',
-# 		'data':obj['data'],
-# 		'labels':obj['labels'],
-# 		'label':obj['title']
-# 	}
-# 	return render(req,'analytics/dashboard.html',context)
 
 def complaints(req):
-	obj = {'data':[],'labels':[],'title':''}
+	result = finders.find('analytics/mis13.json')
+	with open(result,'r') as f:
+		obj = json.load(f)
 
-	if req.method == 'POST':
-		filename = '../data/'+req.POST['type']+req.POST['year']+'.json'
-		with open(filename,'r') as f:
-			obj = json.load(f)
-
-		# context = {
-		# 	'title':'Schools Report Monitoring Dashboard',
-		# 	'data':obj['data'],
-		# 	'labels':obj['labels'],
-		# 	'label':obj['title'],
-		# 	'email':'authority@fubars.com'
-		# }
-
-		return redirect('index')
-
-	else:
-		with open('./data/mis13.json','r') as f:
-			obj = json.load(f)
-		
+	data = [(o or 0) for o in obj['data']]
+	labels = [ str(label) for label in obj['labels'] ]
 	context = {
 		'title':'Schools Report Monitoring Dashboard',
-		'data':obj['data'],
-		'labels':obj['labels'],
+		'data':data,
+		'labels':labels,
 		'label':obj['title'],
 		'email':'authority@fubars.com'
 	}
 
-	return render(req,'analytics/Dashboard_index.html',context)
+	return render(req,'analytics/dashboard.html',context)
 
 def attendance(req):
-	obj = {'data':[],'labels':[],'title':''}
 
-	if req.method == 'POST':
-		filename = '../data/'+req.POST['type']+req.POST['year']+'.json'
-		with open(filename,'r') as f:
-			obj = json.load(f)
+	result = finders.find('analytics/attendance.json')
+		# print(finders.searched_locations)
+	with open(result,'r') as f:
+		obj = json.load(f)
 
-		# context = {
-		# 	'title':'Schools Report Monitoring Dashboard',
-		# 	'data':obj['data'],
-		# 	'labels':obj['labels'],
-		# 	'label':obj['title'],
-		# 	'email':'authority@fubars.com'
-		# }
-
-		return redirect('index')
-
-	else:
-		with open('./data/mis13.json','r') as f:
-			obj = json.load(f)
+	data_feb = [(o or 0) for o in obj['data_feb']]
+	data_jan = [(o or 0) for o in obj['data_jan']]
+	labels = [str(label) for label in obj['labels'] ]
+	print(labels)
 		
 	context = {
 		'title':'Schools Report Monitoring Dashboard',
-		'data':obj['data'],
-		'labels':obj['labels'],
+		'data_feb':data_feb,
+		'data_jan':data_jan,
+		'labels':labels,
 		'label':obj['title'],
 		'email':'authority@fubars.com'
 	}
 
-	return render(req,'analytics/Dashboard_index.html',context)
+	return render(req,'analytics/attendance.html',context)
+	
 def allotment(req):
 	obj = {'data':[],'labels':[],'title':''}
 
