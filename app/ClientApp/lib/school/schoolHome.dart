@@ -263,7 +263,7 @@ class _SchoolHomeState extends State<SchoolHome> {
         ),
         ListTile(
             trailing: Icon(
-              Icons.logout,
+              Icons.exit_to_app,
               color: Color.fromRGBO(50, 134, 103, 1),
             ),
             title: Text(
