@@ -3,7 +3,7 @@
 
 <!-- Main Chart Goes -->
 {% block content %}
-<div class="container">
+<div class="container" style="margin-left:16%">
 			<form class="filter" method="POST" action="dashboard">
 				{% csrf_token %}
 				<div class="dropdown-container">
@@ -22,7 +22,6 @@
 						<option class="dropdown-option" value="16">2016</option>
 					</select>
 				</div>
-				<Button class="go" onclick="log()">Go</Button>
 			</form>
 			
 			<div class="chart-container" style="margin:0 auto">

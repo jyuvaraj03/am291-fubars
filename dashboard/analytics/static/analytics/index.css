@@ -42,7 +42,7 @@ body {
   color: #999;
 }
 
-.sidebar .nav-link.active {
+.sidebar .nav-link.active,a:active {
   color: #007bff;
 }
 

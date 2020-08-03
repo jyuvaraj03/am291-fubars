@@ -1,0 +1,30 @@
+{% extends "analytics/Dashboard_index.html" %}
+{% load static %}
+
+<!-- Main Chart Goes -->
+{% block content %}
+	<div class="container" style="margin-left: 16.3%">
+		<p class="h4" style="margin-bottom: 5%;">{{label}}</p>
+		<table class="table table-hover table-striped">
+		  <thead>
+		    <tr>
+		    	{%for key in keys%}
+		      		<th scope="col">{{key}}</th>
+		    	{%endfor%}
+		    </tr>
+		  </thead>
+		  
+		  <tbody>
+		  	{%for obj in values%}
+			    <tr>
+			    	{%for i in obj%}
+				      <td>{{i}}</td>
+				    {%endfor%}
+			    </tr>
+			{%endfor%}
+		  </tbody>
+		</table>
+
+	</div>
+</body>
+{% endblock %}

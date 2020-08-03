@@ -3,16 +3,28 @@
 
 <!-- Main Chart Goes -->
 {% block content %}
-		<div style="margin-left:30%;margin-top:5%">
+		<div style="margin-left:40%;margin-top:5%;">
 			<h4>Average attendance in Schools in Vishakapatnam</h4>
 			<div class="chart-container">
 				<canvas id="chart"></canvas>
+			</div>
+			<hr style="border:1px solid #eee;margin-left:-10%;width:80%">
+			<div class="dropdown-container">
+				<label class="dropdown-label">School Name</label>
+				<select name="School Name" class="dropdown">
+					{%for label in labels%}
+						<option class="dropdown-option" value="{{label}}">{{label}}</option>
+					{%endfor%}
+				</select>
+			</div>
+			<div class="chart-container">
+				<canvas id="line"></canvas>
 			</div>
 		</div>
 	</body>
 	<script>
 		const log = ()=>{console.log("hi")};
-		var labels = ["DALIGUMMADI", "GES HUKUMPETA", "GES NEELAMPUTTU", "GES SUKURU"]
+		var labels = "{{labels}}"
 
 		let data_feb = JSON.parse("{{data_feb}}")
 		let data_jan = JSON.parse("{{data_jan}}")
@@ -21,7 +33,7 @@
 		
 		console.log(labels,data);
 		var data = {
-		    labels: labels,
+		    labels: ["DALIGUMMADI", "GES HUKUMPETA", "GES NEELAMPUTTU", "GES SUKURU"],
 		    datasets: [
 		    	{
 		            label: "Average Attendance in Jan 2020",
@@ -53,6 +65,28 @@
 		                }
 		            }]
 		        }
+		    }
+		});
+
+		var ctx = document.getElementById('line').getContext('2d');
+
+		var data = {
+		    labels: ['Feb 12','Feb 13','Feb 14','Feb 15','Today'],
+		    datasets: [
+		    	{
+		            label: "Daily Attendance for GES HUKUMPETA",
+		            data: [486,489,503,482,491],
+		           	borderColor: '#2196f3',
+		            borderWidth: 1,
+		            fill:false,
+		        }
+		    ]
+		};
+
+		var myLineChart = new Chart(ctx, {
+			    type: 'line',
+			    data: data,
+			    options: {
 		    }
 		});
 

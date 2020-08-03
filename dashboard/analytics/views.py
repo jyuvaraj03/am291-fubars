@@ -73,7 +73,7 @@ def attendance(req):
 		'title':'Schools Report Monitoring Dashboard',
 		'data_feb':data_feb,
 		'data_jan':data_jan,
-		'labels':labels,
+		'labels':["DALIGUMMADI", "GES HUKUMPETA", "GES NEELAMPUTTU", "GES SUKURU"],
 		'label':obj['title'],
 		'email':'authority@fubars.com'
 	}
@@ -81,36 +81,20 @@ def attendance(req):
 	return render(req,'analytics/attendance.html',context)
 	
 def allotment(req):
-	obj = {'data':[],'labels':[],'title':''}
 
-	if req.method == 'POST':
-		filename = '../data/'+req.POST['type']+req.POST['year']+'.json'
-		with open(filename,'r') as f:
-			obj = json.load(f)
-
-		# context = {
-		# 	'title':'Schools Report Monitoring Dashboard',
-		# 	'data':obj['data'],
-		# 	'labels':obj['labels'],
-		# 	'label':obj['title'],
-		# 	'email':'authority@fubars.com'
-		# }
-
-		return redirect('index')
-
-	else:
-		with open('./data/mis13.json','r') as f:
-			obj = json.load(f)
-		
+	result = finders.find('analytics/allocation.json')
+		# print(finders.searched_locations)
+	with open(result,'r') as f:
+		obj = json.load(f)
+	obj = obj[:5]
 	context = {
-		'title':'Schools Report Monitoring Dashboard',
-		'data':obj['data'],
-		'labels':obj['labels'],
-		'label':obj['title'],
+		'label':'Rice Requirements for schools for Feb 2020 in kgs',
+		'keys':obj[0].keys(),
+		'values':[o.values() for o in obj],
 		'email':'authority@fubars.com'
 	}
 
-	return render(req,'analytics/Dashboard_index.html',context)
+	return render(req,'analytics/allotment.html',context)
 
 def live(req):
 	pass
